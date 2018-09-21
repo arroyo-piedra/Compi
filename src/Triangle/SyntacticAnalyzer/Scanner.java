@@ -130,6 +130,10 @@ public final class Scanner {
 
     case '.':
       takeIt();
+      if (currentChar == '.'){         //Verifies if is DOTDOT or just DOT
+        takeIt();
+        return Token.DOTDOT;
+      } else 
       return Token.DOT;
 
     case ':':
@@ -175,6 +179,11 @@ public final class Scanner {
     case '}':
       takeIt();
       return Token.RCURLY;
+      
+    case '|':               //Adding case PIPE 
+        takeIt();
+        return Token.PIPE;
+        
 
     case SourceFile.EOT:
       return Token.EOT;
@@ -182,6 +191,8 @@ public final class Scanner {
     default:
       takeIt();
       return Token.ERROR;
+      
+
     }
   }
 

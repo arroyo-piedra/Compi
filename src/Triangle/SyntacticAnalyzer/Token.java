@@ -101,23 +101,25 @@ final class Token extends Object {
 
     // punctuation...
     DOT			= 31,
-    COLON		= 32,
-    SEMICOLON	= 33,
-    COMMA		= 34,
-    BECOMES		= 35,
-    IS			= 36,
+    DOTDOT              = 32,       //Adding DOTDOT
+    COLON		= 33,
+    SEMICOLON	= 34,
+    COMMA		= 35,
+    BECOMES		= 36,
+    IS			= 37,
+    PIPE                = 38,       //Adding PIPE
 
     // brackets...
-    LPAREN		= 37,
-    RPAREN		= 38,
-    LBRACKET	= 39,
-    RBRACKET	= 40,
-    LCURLY		= 41,
-    RCURLY		= 42,
+    LPAREN		= 39,
+    RPAREN		= 40,
+    LBRACKET	= 41,
+    RBRACKET	= 42,
+    LCURLY		= 43,
+    RCURLY		= 44,
 
     // special tokens...
-    EOT			= 43,
-    ERROR		= 44;
+    EOT			= 45,
+    ERROR		= 46;
 
   private static String[] tokenTable = new String[] {
     "<int>",
@@ -126,19 +128,30 @@ final class Token extends Object {
     "<operator>",
     "array",
     "begin",
+    "case",     //Adding CASE
     "const",
     "do",
     "else",
+    "elsif",   //Adding ELSIF
     "end",
+    "for",      //Adding FOR
+    "from",     //Adding FROM
     "func",
     "if",
     "in",
     "let",
+    "local",    //Adding LOCAL
     "of",
+    "nil",      //Adding NIL
     "proc",
     "record",
+    "recursive",    //Adding RECURSIVE
+    "repeat",       //Adding REPEAT
+    "select",       //Adding SELECT
     "then",
+    "to",           //Adding TO
     "type",
+    "until",        //Adding UNTIL
     "var",
     "while",
     ".",
@@ -153,11 +166,12 @@ final class Token extends Object {
     "]",
     "{",
     "}",
+    "|",        //Adding PIPE
+    "..",       //Adding DOTDOT
     "",
     "<error>",
-    "|",
-    "..",
-    "nil"
+    
+    
     
   };
 
