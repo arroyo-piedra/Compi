@@ -32,11 +32,13 @@ import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.Declaration;
 import Triangle.AbstractSyntaxTrees.DotVname;
+import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
 import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.Expression;
 import Triangle.AbstractSyntaxTrees.FieldTypeDenoter;
+import Triangle.AbstractSyntaxTrees.ForCommand;
 import Triangle.AbstractSyntaxTrees.FormalParameter;
 import Triangle.AbstractSyntaxTrees.FormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.FuncActualParameter;
@@ -75,6 +77,7 @@ import Triangle.AbstractSyntaxTrees.SubscriptVname;
 import Triangle.AbstractSyntaxTrees.TypeDeclaration;
 import Triangle.AbstractSyntaxTrees.TypeDenoter;
 import Triangle.AbstractSyntaxTrees.UnaryExpression;
+import Triangle.AbstractSyntaxTrees.UntilCommand;
 import Triangle.AbstractSyntaxTrees.VarActualParameter;
 import Triangle.AbstractSyntaxTrees.VarDeclaration;
 import Triangle.AbstractSyntaxTrees.VarFormalParameter;
@@ -310,14 +313,25 @@ public class Parser {
       }
       break;
 
-    case Token.IF:
+    case Token.IF: //change if token, change singleCommand to Command
       {
         acceptIt();
         Expression eAST = parseExpression();
         accept(Token.THEN);
-        Command c1AST = parseSingleCommand();
+        Command c1AST = parseCommand();
+        
+        while (currentToken.kind == Token.ELSIF) { //add the ELSEIF token
+            acceptIt();
+            Expression eASTAux = parseExpression();
+            accept(Token.THEN);
+            Command cASTAux = parseCommand();
+            finish(commandPos);
+            commandAST = new ElseIfCommand(eASTAux, cASTAux, commandPos);
+          }
+        
         accept(Token.ELSE);
-        Command c2AST = parseSingleCommand();
+        Command c2AST = parseCommand();
+        accept(Token.END);
         finish(commandPos);
         commandAST = new IfCommand(eAST, c1AST, c2AST, commandPos);
       }
@@ -384,18 +398,18 @@ public class Parser {
                 Command cAST = parseCommand();
                 accept(Token.END);
                 finish(commandPos);
-                commandAST = new ForCommand(iAST,eAST,eAST2,cAST);
+                commandAST = new ForCommand(iAST,eAST,eAST2,cAST,commandPos);
               }
             }
         }
-    case Token.SELECT:
+   /* case Token.SELECT: //////////////////////////////////////////////////////////////
     {
         acceptIt();
         Expression eAST = parseExpression();
         accept(Token.FROM);
         Cas
         accept();
-    }
+    }*/
 
     case Token.SEMICOLON:
     case Token.END:
@@ -647,6 +661,21 @@ public class Parser {
 // DECLARATIONS
 //
 ///////////////////////////////////////////////////////////////////////////////
+  
+  Declaration compoundDeclaration() throws SyntaxError {
+      Declaration declarationAST = null; // in case there's a syntactic error
+
+      SourcePosition declarationPos = new SourcePosition();
+      start(declarationPos);
+      
+      declarationAST = parseSingleDeclaration();
+      
+      switch(currentToken.kind){
+          case Token.si
+      }
+      
+      return declarationAST;
+  }
 
   Declaration parseDeclaration() throws SyntaxError {
     Declaration declarationAST = null; // in case there's a syntactic error

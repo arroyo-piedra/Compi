@@ -127,7 +127,7 @@ final class Token extends Object {
     "<identifier>",
     "<operator>",
     "array",
-    "begin",
+    //"begin",    // removing the begin token
     "case",     //Adding CASE
     "const",
     "do",

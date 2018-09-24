@@ -24,6 +24,9 @@ public interface Visitor {
   public abstract Object visitLetCommand(LetCommand ast, Object o);
   public abstract Object visitSequentialCommand(SequentialCommand ast, Object o);
   public abstract Object visitWhileCommand(WhileCommand ast, Object o);
+  public abstract Object visitUntilCommand(UntilCommand aThis, Object o); //add the until command to the visitor
+  public abstract Object visitForCommand(ForCommand aThis, Object o); //add the for command to the visitor
+  public abstract Object visitElseIfCommand(ElseIfCommand aThis, Object o); //add the else if command to the visitor
 
 
   // Expressions
@@ -103,5 +106,7 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
+
+
 
 }
