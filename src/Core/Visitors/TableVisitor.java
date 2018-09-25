@@ -361,6 +361,10 @@ public class TableVisitor implements Visitor {
     public Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o) {//add var inicialization declaration
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
+
+
   
   // </editor-fold>
 
@@ -679,7 +683,6 @@ public class TableVisitor implements Visitor {
   // <editor-fold defaultstate="collapsed" desc=" Attributes ">
     private DefaultTableModel model;
     // </editor-fold>
-
 
 
 

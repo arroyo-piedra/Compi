@@ -56,7 +56,6 @@ public interface Visitor {
   public abstract Object visitLocalDeclaration(LocalDeclaration ast, Object o); //add the local declaration
   public abstract Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o); //add the compund declaration
   public abstract Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o); //add the Var initialization declaration
-  
 
   // Array Aggregates
   public abstract Object visitMultipleArrayAggregate(MultipleArrayAggregate ast, Object o);
@@ -113,6 +112,8 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
+
+    
 
 
 

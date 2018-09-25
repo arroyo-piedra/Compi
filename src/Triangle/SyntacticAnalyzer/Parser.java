@@ -20,6 +20,7 @@ import Triangle.AbstractSyntaxTrees.ActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.ArrayAggregate;
 import Triangle.AbstractSyntaxTrees.ArrayExpression;
 import Triangle.AbstractSyntaxTrees.ArrayTypeDenoter;
+import Triangle.AbstractSyntaxTrees.ArrayTypeDenoterAux;
 import Triangle.AbstractSyntaxTrees.AssignCommand;
 import Triangle.AbstractSyntaxTrees.BinaryExpression;
 import Triangle.AbstractSyntaxTrees.CallCommand;
@@ -48,6 +49,7 @@ import Triangle.AbstractSyntaxTrees.FuncFormalParameter;
 import Triangle.AbstractSyntaxTrees.Identifier;
 import Triangle.AbstractSyntaxTrees.IfCommand;
 import Triangle.AbstractSyntaxTrees.IfExpression;
+import Triangle.AbstractSyntaxTrees.IntegerDeclaration;
 import Triangle.AbstractSyntaxTrees.IntegerExpression;
 import Triangle.AbstractSyntaxTrees.IntegerLiteral;
 import Triangle.AbstractSyntaxTrees.LetCommand;
@@ -272,7 +274,7 @@ public class Parser {
     return commandAST;
   }
 
-  Command parseSingleCommand() throws SyntaxError {
+  Command parseSingleCommand() throws SyntaxError { //modify 
     Command commandAST = null; // in case there's a syntactic error  
     
     SourcePosition commandPos = new SourcePosition(); 
@@ -366,6 +368,7 @@ public class Parser {
                 finish(commandPos);
                 commandAST = new UntilCommand(eAST, cAST, commandPos); //add until command
               }
+              break;
               case Token.DO : //add the DO token
               {
                acceptIt(); // first command and then an expression
@@ -380,6 +383,7 @@ public class Parser {
                         finish(commandPos);
                         commandAST = new WhileCommand(eAST, cAST, commandPos); 
                     }
+                    break;
                     
                     case Token.UNTIL: //add the UNTIL token
                     {
@@ -389,8 +393,11 @@ public class Parser {
                         finish(commandPos);
                         commandAST = new UntilCommand(eAST, cAST, commandPos);
                     }
+                    break;
                 }
+                
               } 
+              break;
               case Token.FOR: //add the FOR token
               {
                 acceptIt();
@@ -405,8 +412,10 @@ public class Parser {
                 finish(commandPos);
                 commandAST = new ForCommand(iAST,eAST,eAST2,cAST,commandPos); //add for command
               }
+              break;
             }
         }
+        break;
    /* case Token.SELECT: //////////////////////////////////////////////////////////////
     {
         acceptIt();
@@ -422,11 +431,19 @@ public class Parser {
     case Token.IN:
     case Token.EOT:
 
-      finish(commandPos);
+      /*finish(commandPos); remove empty command
       commandAST = new EmptyCommand(commandPos);
-      break;
+      break;*/
+      
+    case Token.NIL:
+    {
+        acceptIt();
+        finish(commandPos);
+        commandAST = new EmptyCommand(commandPos);
+    }
+    break;
 
-    default:
+    default:   
       syntacticError("\"%\" cannot start a command",
         currentToken.spelling);
       break;
@@ -624,6 +641,33 @@ public class Parser {
     }
     return aggregateAST;
   }
+  
+    Expression parseCaseLiteral () throws SyntaxError{  //creating Case Literal
+      Expression expressionAST = null;
+        SourcePosition declarationPos = new SourcePosition();
+        start(declarationPos);
+        
+        switch (currentToken.kind) {    
+            case Token.INTLITERAL: {    //Case Literal for IntLiteral
+                acceptIt();
+                IntegerLiteral ilAST = parseIntegerLiteral();
+                finish(declarationPos);
+                expressionAST = new IntegerExpression(ilAST,declarationPos);
+            }					
+            break;
+            case Token.CHARLITERAL: {   //Case Literal for CharLiteral
+                acceptIt();
+                CharacterLiteral clAST = parseCharacterLiteral();
+                finish(declarationPos);
+                expressionAST = new CharacterExpression(clAST,declarationPos);
+            break;
+        }
+        
+       
+  }
+         return expressionAST;
+  }
+  
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -667,29 +711,7 @@ public class Parser {
 //
 ///////////////////////////////////////////////////////////////////////////////
   
-  Declaration parseCaseLiteral () throws SyntaxError{
-      Declaration declarationAST = null;
-        SourcePosition declarationPos = new SourcePosition();
-        start(declarationPos);
-        
-        switch (currentToken.kind) {
-            case Token.INTLITERAL: {
-                acceptIt();
-                finish(declarationPos);
-                declarationAST = new IntegerLiteral(currentToken.toString(),declarationPos);
-            }					
-            break;
-            case Token.CHARLITERAL: {
-                acceptIt();
-                finish(declarationPos);
-                declarationAST = new FuncDeclaration(iAST, fpsAST, tAST, eAST, declarationPos); 
-            }						
-            break;
-        }
-        
-        return declarationAST;
-  }
-  
+
   Declaration parseProcFunc() throws SyntaxError { //add proc funcs rule
         Declaration declarationAST = null;
         SourcePosition declarationPos = new SourcePosition();
