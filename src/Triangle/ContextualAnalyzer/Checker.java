@@ -26,6 +26,7 @@ import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
+import Triangle.AbstractSyntaxTrees.CaseCases;
 import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CharacterCases;
@@ -1023,6 +1024,11 @@ public final class Checker implements Visitor {
 
     @Override
     public Object visitElseCase(ElseCase aThis, Object o) { //add else case to Checker 
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object visitCaseCases(CaseCases aThis, Object o) {   //add case cases to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

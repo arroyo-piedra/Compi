@@ -25,6 +25,7 @@ import Triangle.AbstractSyntaxTrees.AssignCommand;
 import Triangle.AbstractSyntaxTrees.BinaryExpression;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
+import Triangle.AbstractSyntaxTrees.CaseCases;
 import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
 import Triangle.AbstractSyntaxTrees.Cases;
 import Triangle.AbstractSyntaxTrees.CharacterCases;
@@ -321,7 +322,40 @@ public class Parser {
     return caseAST;
     
     }
+    
+    Cases parseCaseCases() throws SyntaxError{ //add case command
+    Cases caseAST = null; // in case there's a syntactic error
 
+    SourcePosition casePosition = new SourcePosition();
+    start(casePosition);
+    accept(Token.CASE);
+    Cases caseAST2 = parseCaseLiterals();
+    accept(Token.THEN);
+    Command cAST = parseCommand();
+    finish(casePosition);
+    caseAST = new CaseCases(caseAST2,cAST,casePosition);
+    return caseAST;
+    
+    }
+    
+    Cases parseCasesCases() throws SyntaxError{
+        Cases caseAST = null; // in case there's a syntactic error
+
+        SourcePosition casePosition = new SourcePosition();
+        start(casePosition);
+        do{
+            
+            while()
+        }
+        accept(Token.CASE);
+        Cases caseAST2 = parseCaseLiterals();
+        accept(Token.THEN);
+        Command cAST = parseCommand();
+        finish(casePosition);
+        caseAST = new CaseCases(caseAST2,cAST,casePosition);
+        return caseAST;
+    }
+    
 ///////////////////////////////////////////////////////////////////////////////
 //
 // COMMANDS

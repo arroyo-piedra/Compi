@@ -15,6 +15,7 @@ import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
+import Triangle.AbstractSyntaxTrees.CaseCases;
 import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
 //import Triangle.AbstractSyntaxTrees.CaseCommand;
 //import Triangle.AbstractSyntaxTrees.CaseLiteralExpression;
@@ -713,16 +714,20 @@ public class TableVisitor implements Visitor {
     }
     
     
-    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) {
+    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //Add Case Literals Case
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
-    public Object visitElseCase(ElseCase aThis, Object o) {
+    public Object visitElseCase(ElseCase aThis, Object o) { //Add Else Case
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    public Object visitCaseCases(CaseCases aThis, Object o) {   //Add Case Cases
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     // </editor-fold>
+
 
     
 

@@ -21,6 +21,7 @@ public interface Visitor {
   public abstract Object visitCharacterCases(CharacterCases aThis, Object o); //add character cases to visitor 
   public abstract Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o); //add case literals cases to visitor 
   public abstract Object visitElseCase(ElseCase aThis, Object o); //add else case to visitor 
+  public abstract Object visitCaseCases(CaseCases aThis, Object o); //add case cases to visitor 
 
   // Commands
   public abstract Object visitAssignCommand(AssignCommand ast, Object o);
@@ -121,14 +122,6 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
-
-    
-
-    
-
-   
-
-    
 
 
 
