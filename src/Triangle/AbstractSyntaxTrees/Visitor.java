@@ -15,6 +15,12 @@
 package Triangle.AbstractSyntaxTrees;
 
 public interface Visitor {
+    
+  //Cases
+  public abstract Object visitIntegerCases(IntegerCases ast, Object o); //add integer cases to visitor 
+  public abstract Object visitCharacterCases(CharacterCases aThis, Object o); //add character cases to visitor 
+  public abstract Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o); //add case literals cases to visitor 
+  public abstract Object visitElseCase(ElseCase aThis, Object o); //add else case to visitor 
 
   // Commands
   public abstract Object visitAssignCommand(AssignCommand ast, Object o);
@@ -27,8 +33,8 @@ public interface Visitor {
   public abstract Object visitUntilCommand(UntilCommand aThis, Object o); //add the until command to the visitor
   public abstract Object visitForCommand(ForCommand aThis, Object o); //add the for command to the visitor
   public abstract Object visitElseIfCommand(ElseIfCommand aThis, Object o); //add the else if command to the visitor
-  public abstract Object visitCaseCommand(CaseCommand aThis, Object o); //add case command to the visitor
-  public abstract Object visitElseCaseCommand(ElseCaseCommand aThis, Object o); //add else case command to the visitor
+  //public abstract Object visitCaseCommand(CaseCommand aThis, Object o); //add case command to the visitor
+  //public abstract Object visitElseCaseCommand(ElseCaseCommand aThis, Object o); //add else case command to the visitor
 
 
   // Expressions
@@ -43,7 +49,7 @@ public interface Visitor {
   public abstract Object visitRecordExpression(RecordExpression ast, Object o);
   public abstract Object visitUnaryExpression(UnaryExpression ast, Object o);
   public abstract Object visitVnameExpression(VnameExpression ast, Object o);
-  public abstract Object visitCaseLiteralExpression(CaseLiteralExpression ast, Object o); //add case literal expression
+  //public abstract Object visitCaseLiteralExpression(CaseLiteralExpression ast, Object o); //add case literal expression
 
   // Declarations
   public abstract Object visitBinaryOperatorDeclaration(BinaryOperatorDeclaration ast, Object o);
@@ -115,6 +121,12 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
+
+    
+
+    
+
+   
 
     
 

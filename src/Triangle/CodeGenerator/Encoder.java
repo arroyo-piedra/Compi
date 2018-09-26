@@ -34,7 +34,9 @@ import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
+import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
+import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
 import Triangle.AbstractSyntaxTrees.CompoundDeclaration;
@@ -43,6 +45,7 @@ import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.Declaration;
 import Triangle.AbstractSyntaxTrees.DotVname;
+import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -57,6 +60,7 @@ import Triangle.AbstractSyntaxTrees.Identifier;
 import Triangle.AbstractSyntaxTrees.IfCommand;
 import Triangle.AbstractSyntaxTrees.IfExpression;
 import Triangle.AbstractSyntaxTrees.IntTypeDenoter;
+import Triangle.AbstractSyntaxTrees.IntegerCases;
 import Triangle.AbstractSyntaxTrees.IntegerExpression;
 import Triangle.AbstractSyntaxTrees.IntegerLiteral;
 import Triangle.AbstractSyntaxTrees.LetCommand;
@@ -1054,6 +1058,32 @@ public final class Encoder implements Visitor {
 
     
     public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) { //add Array type denoter aux
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    CASES
+    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    
+    @Override
+    public Object visitIntegerCases(IntegerCases ast, Object o) {   //add interger cases to Encoder
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object visitCharacterCases(CharacterCases aThis, Object o) { //add character cases to Encoder
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //add case literals case to Encoder
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object visitElseCase(ElseCase aThis, Object o) { //add else case to Encoder
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

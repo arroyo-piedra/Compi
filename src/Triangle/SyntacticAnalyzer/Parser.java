@@ -25,8 +25,9 @@ import Triangle.AbstractSyntaxTrees.AssignCommand;
 import Triangle.AbstractSyntaxTrees.BinaryExpression;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
-import Triangle.AbstractSyntaxTrees.CaseCommand;
-import Triangle.AbstractSyntaxTrees.CaseLiteralExpression;
+import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
+import Triangle.AbstractSyntaxTrees.Cases;
+import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
 import Triangle.AbstractSyntaxTrees.Command;
@@ -36,6 +37,7 @@ import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.Declaration;
 import Triangle.AbstractSyntaxTrees.DotVname;
+import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -51,7 +53,8 @@ import Triangle.AbstractSyntaxTrees.FuncFormalParameter;
 import Triangle.AbstractSyntaxTrees.Identifier;
 import Triangle.AbstractSyntaxTrees.IfCommand;
 import Triangle.AbstractSyntaxTrees.IfExpression;
-import Triangle.AbstractSyntaxTrees.IntegerDeclaration;
+import Triangle.AbstractSyntaxTrees.IntegerCases;
+//import Triangle.AbstractSyntaxTrees.IntegerDeclaration;
 import Triangle.AbstractSyntaxTrees.IntegerExpression;
 import Triangle.AbstractSyntaxTrees.IntegerLiteral;
 import Triangle.AbstractSyntaxTrees.LetCommand;
@@ -250,6 +253,74 @@ public class Parser {
     }
     return O;
   }
+  
+///////////////////////////////////////////////////////////////////////////////
+//
+// CASES //add the cases type
+//
+///////////////////////////////////////////////////////////////////////////////
+  
+  Cases parseCase() throws SyntaxError {
+      Cases caseAST = null;
+      SourcePosition casePosition = new SourcePosition();
+      start(casePosition);
+      accept(Token.CASE);
+      
+      return caseAST;
+  }
+  
+  Cases parseCaseLiteral() throws SyntaxError { //add case litera CASES
+      Cases caseAST = null;
+      
+      SourcePosition casePosition = new SourcePosition();
+      start(casePosition);
+      
+      switch (currentToken.kind) {    
+            case Token.INTLITERAL: {    //Case Literal for IntLiteral
+                acceptIt();
+                IntegerLiteral ilAST = parseIntegerLiteral();
+                finish(casePosition);
+                caseAST = new IntegerCases(ilAST,casePosition);
+            }					
+            break;
+            case Token.CHARLITERAL: {   //Case Literal for CharLiteral
+                acceptIt();
+                CharacterLiteral clAST = parseCharacterLiteral();
+                finish(casePosition);
+                caseAST = new CharacterCases(clAST,casePosition);
+            break;
+        }
+      }
+        return caseAST;
+    }
+        
+   Cases parseCaseLiterals() throws SyntaxError{ //creating Case Literals
+      Cases caseAST = null;
+      SourcePosition casePosition = new SourcePosition();
+      start(casePosition);
+      
+      caseAST = parseCaseLiteral();
+      
+      while (currentToken.kind == Token.PIPE) {
+        Cases caseAST2 = parseCaseLiteral();
+        caseAST = new CaseLiteralsCase(caseAST,caseAST2,casePosition); //add case literal case
+      }
+      return caseAST;
+  }
+   
+   
+    Cases elseCase ()throws SyntaxError{ //add else case command
+    Cases caseAST = null; // in case there's a syntactic error
+
+    SourcePosition casePosition = new SourcePosition();
+    start(casePosition);
+    accept(Token.ELSE);
+    Command cAST = parseCommand();
+    finish(casePosition);
+    caseAST = new ElseCase(cAST,casePosition);
+    return caseAST;
+    
+    }
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -260,7 +331,7 @@ public class Parser {
 // parseCommand parses the command, and constructs an AST
 // to represent its phrase structure.
   
-  Command casesCommand()throws SyntaxError{ //add cases command
+  /*Command casesCommand()throws SyntaxError{ //add cases command
     Command commandAST = null; // in case there's a syntactic error
 
     SourcePosition commandPos = new SourcePosition();
@@ -297,7 +368,7 @@ public class Parser {
     finish(commandPos);
     commandAST = new CaseCommand(clAST,cAST,commandPos);
     return commandAST;
-}
+}*/
   
   Command parseCommand() throws SyntaxError {
     Command commandAST = null; // in case there's a syntactic error
@@ -458,13 +529,15 @@ public class Parser {
                 commandAST = new ForCommand(iAST,eAST,eAST2,cAST,commandPos); //add for command
               }
               break;
+              default:   
+              syntacticError("\"%\" invalid syntax, spected \"while\", \"until\", \"do\", \"for\" token on",
+              currentToken.spelling); //Add an Syntactic Error if it don't find WHILE, UNTIL, DO or FOR
+              
+              break;
             }
         }
         break;
-        default:   
-            syntacticError("\"%\" invalid syntax, spected \"while\", \"until\", \"do\", \"for\" token on",
-            currentToken.spelling); //Add an Syntactic Error if it don't find WHILE, UNTIL, DO or FOR
-        break;
+    
    /* case Token.SELECT: //////////////////////////////////////////////////////////////
     {
         acceptIt();
@@ -484,7 +557,7 @@ public class Parser {
       commandAST = new EmptyCommand(commandPos);
       break;*/
       
-    case Token.NIL:
+    case Token.NIL:     //Creating the new emptyCommand with NIL
     {
         acceptIt();
         finish(commandPos);
@@ -691,7 +764,7 @@ public class Parser {
     return aggregateAST;
   }
   
-    Expression parseCaseLiteral () throws SyntaxError{  //creating Case Literal
+    /*Expression parseCaseLiteral () throws SyntaxError{  //creating Case Literal
       Expression expressionAST = null;
         SourcePosition expressionPos = new SourcePosition();
         start(expressionPos);
@@ -729,7 +802,7 @@ public class Parser {
         expressionAST = new CaseLiteralExpression(expressionAST,clExpression,expressionPos); //add case literal expression
       }
       return expressionAST;
-  }
+  }*/
   
 
 ///////////////////////////////////////////////////////////////////////////////
