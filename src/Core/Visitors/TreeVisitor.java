@@ -17,8 +17,7 @@ import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
 import Triangle.AbstractSyntaxTrees.CaseCases;
 import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
-//import Triangle.AbstractSyntaxTrees.CaseCommand;
-//import Triangle.AbstractSyntaxTrees.CaseLiteralExpression;
+import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
@@ -29,7 +28,6 @@ import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.ElseCase;
-//import Triangle.AbstractSyntaxTrees.ElseCaseCommand;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -64,6 +62,7 @@ import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RecursiveDeclaration;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
@@ -144,6 +143,11 @@ public class TreeVisitor implements Visitor {
     public Object visitElseIfCommand(ElseIfCommand ast, Object obj) { //add Else If command in tree visit
         return(createBinary("Else If", ast.E, ast.C));
     }
+    
+    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //add Select Command in tree visit
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /*public Object visitCaseCommand(CaseCommand aThis, Object o) { //add case command
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -528,8 +532,14 @@ public class TreeVisitor implements Visitor {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Object visitCasesCases(CasesCases aThis, Object o) { //Add Cases Case 
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     // </editor-fold>
 
+   
+
+    
     
 
     

@@ -17,8 +17,7 @@ import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
 import Triangle.AbstractSyntaxTrees.CaseCases;
 import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
-//import Triangle.AbstractSyntaxTrees.CaseCommand;
-//import Triangle.AbstractSyntaxTrees.CaseLiteralExpression;
+import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
@@ -29,7 +28,6 @@ import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.ElseCase;
-//import Triangle.AbstractSyntaxTrees.ElseCaseCommand;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -64,6 +62,7 @@ import Triangle.AbstractSyntaxTrees.Program;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RecursiveDeclaration;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
@@ -180,6 +179,12 @@ public class TableVisitor implements Visitor {
       
       return(null);
   }
+   
+ 
+    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //add select command intable visitor
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   }
+
     /*public Object visitCaseCommand(CaseCommand aThis, Object o) { //add case command
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -726,8 +731,16 @@ public class TableVisitor implements Visitor {
     public Object visitCaseCases(CaseCases aThis, Object o) {   //Add Case Cases
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    public Object visitCasesCases(CasesCases aThis, Object o) { //Add Cases Cases
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     // </editor-fold>
 
+    
+
+    
 
     
 

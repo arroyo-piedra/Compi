@@ -372,45 +372,6 @@ public class Parser {
 // parseCommand parses the command, and constructs an AST
 // to represent its phrase structure.
   
-  /*Command casesCommand()throws SyntaxError{ //add cases command
-    Command commandAST = null; // in case there's a syntactic error
-
-    SourcePosition commandPos = new SourcePosition();
-    start(commandPos);
-    accept(Token.ELSE);
-    Command cAST = parseCommand();
-    finish(commandPos);
-    commandAST = new ElseCaseCommand(cAST,commandPos);
-    return commandAST;
-}
-  
-  
-  Command elseCase ()throws SyntaxError{ //add else case command
-    Command commandAST = null; // in case there's a syntactic error
-
-    SourcePosition commandPos = new SourcePosition();
-    start(commandPos);
-    accept(Token.ELSE);
-    Command cAST = parseCommand();
-    finish(commandPos);
-    commandAST = new ElseCaseCommand(cAST,commandPos);
-    return commandAST;
-}
-
-  Command parseCaseCommand() throws SyntaxError{ //add case command
-    Command commandAST = null; // in case there's a syntactic error
-
-    SourcePosition commandPos = new SourcePosition();
-    start(commandPos);
-    accept(Token.CASE);
-    Expression clAST = parseCaseLiterals();
-    accept(Token.THEN);
-    Command cAST = parseCommand();
-    finish(commandPos);
-    commandAST = new CaseCommand(clAST,cAST,commandPos);
-    return commandAST;
-}*/
-  
   Command parseCommand() throws SyntaxError {
     Command commandAST = null; // in case there's a syntactic error
 
@@ -808,46 +769,6 @@ public class Parser {
     }
     return aggregateAST;
   }
-  
-    /*Expression parseCaseLiteral () throws SyntaxError{  //creating Case Literal
-      Expression expressionAST = null;
-        SourcePosition expressionPos = new SourcePosition();
-        start(expressionPos);
-        
-        switch (currentToken.kind) {    
-            case Token.INTLITERAL: {    //Case Literal for IntLiteral
-                acceptIt();
-                IntegerLiteral ilAST = parseIntegerLiteral();
-                finish(expressionPos);
-                expressionAST = new IntegerExpression(ilAST,expressionPos);
-            }					
-            break;
-            case Token.CHARLITERAL: {   //Case Literal for CharLiteral
-                acceptIt();
-                CharacterLiteral clAST = parseCharacterLiteral();
-                finish(expressionPos);
-                expressionAST = new CharacterExpression(clAST,expressionPos);
-            break;
-        }
-        
-       
-  }
-         return expressionAST;
-  }
-    
-  Expression parseCaseLiterals () throws SyntaxError{ //creating Case Literals
-      Expression expressionAST = null;
-      SourcePosition expressionPos = new SourcePosition();
-      start(expressionPos);
-      
-      expressionAST = parseCaseLiteral();
-      
-      while (currentToken.kind == Token.PIPE) {
-        Expression clExpression = parseCaseLiteral();
-        expressionAST = new CaseLiteralExpression(expressionAST,clExpression,expressionPos); //add case literal expression
-      }
-      return expressionAST;
-  }*/
   
 
 ///////////////////////////////////////////////////////////////////////////////
