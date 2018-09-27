@@ -22,6 +22,8 @@ public interface Visitor {
   public abstract Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o); //add case literals cases to visitor 
   public abstract Object visitElseCase(ElseCase aThis, Object o); //add else case to visitor 
   public abstract Object visitCaseCases(CaseCases aThis, Object o); //add case cases to visitor 
+  public abstract Object visitCasesCases(CasesCases aThis, Object o);   //add cases cases to visitor 
+  
 
   // Commands
   public abstract Object visitAssignCommand(AssignCommand ast, Object o);
@@ -34,8 +36,8 @@ public interface Visitor {
   public abstract Object visitUntilCommand(UntilCommand aThis, Object o); //add the until command to the visitor
   public abstract Object visitForCommand(ForCommand aThis, Object o); //add the for command to the visitor
   public abstract Object visitElseIfCommand(ElseIfCommand aThis, Object o); //add the else if command to the visitor
-  //public abstract Object visitCaseCommand(CaseCommand aThis, Object o); //add case command to the visitor
-  //public abstract Object visitElseCaseCommand(ElseCaseCommand aThis, Object o); //add else case command to the visitor
+  public abstract Object visitSelectCommand(SelectCommand aThis, Object o); //add the select case command to the visitor
+  
 
 
   // Expressions
@@ -124,5 +126,5 @@ public interface Visitor {
   public abstract Object visitProgram(Program ast, Object o);
 
 
-
+  
 }

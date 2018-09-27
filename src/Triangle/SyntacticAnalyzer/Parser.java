@@ -28,6 +28,7 @@ import Triangle.AbstractSyntaxTrees.CallExpression;
 import Triangle.AbstractSyntaxTrees.CaseCases;
 import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
 import Triangle.AbstractSyntaxTrees.Cases;
+import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
@@ -76,6 +77,7 @@ import Triangle.AbstractSyntaxTrees.RecordAggregate;
 import Triangle.AbstractSyntaxTrees.RecordExpression;
 import Triangle.AbstractSyntaxTrees.RecordTypeDenoter;
 import Triangle.AbstractSyntaxTrees.RecursiveDeclaration;
+import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
@@ -310,7 +312,7 @@ public class Parser {
   }
    
    
-    Cases elseCase ()throws SyntaxError{ //add else case command
+    Cases elseCase() throws SyntaxError{ //add else case command
     Cases caseAST = null; // in case there's a syntactic error
 
     SourcePosition casePosition = new SourcePosition();
@@ -323,7 +325,7 @@ public class Parser {
     
     }
     
-    Cases parseCaseCases() throws SyntaxError{ //add case command
+    Cases parseCaseCases() throws SyntaxError{ //add case cases  (single case)
     Cases caseAST = null; // in case there's a syntactic error
 
     SourcePosition casePosition = new SourcePosition();
@@ -338,21 +340,26 @@ public class Parser {
     
     }
     
-    Cases parseCasesCases() throws SyntaxError{
+    Cases parseCasesCases() throws SyntaxError{   //add cases cases 
         Cases caseAST = null; // in case there's a syntactic error
 
         SourcePosition casePosition = new SourcePosition();
         start(casePosition);
-        do{
+       
             
-            while()
-        }
-        accept(Token.CASE);
-        Cases caseAST2 = parseCaseLiterals();
+        while(currentToken.kind == Token.CASE){ //for CASE token (Case+)
+        acceptIt();
         accept(Token.THEN);
-        Command cAST = parseCommand();
+        Cases caseAST2 = parseCaseCases();
         finish(casePosition);
-        caseAST = new CaseCases(caseAST2,cAST,casePosition);
+        caseAST = new CasesCases(caseAST,caseAST2,casePosition);
+        
+        }if (currentToken.kind == Token.ELSE){  //for ELSECASE situation [ElseCase]
+        acceptIt();
+        Cases ecAST = elseCase();
+        finish(casePosition);
+        caseAST = new CasesCases(caseAST,ecAST,casePosition);
+        }
         return caseAST;
     }
     
@@ -449,7 +456,7 @@ public class Parser {
       }
       break;
 
-    /*case Token.BEGIN: //remove BEGIN token 
+    /*case Token.BEGIN: //remove case BEGIN token 
       acceptIt();
       commandAST = parseCommand();
       accept(Token.END);
@@ -572,14 +579,18 @@ public class Parser {
         }
         break;
     
-   /* case Token.SELECT: //////////////////////////////////////////////////////////////
+    case Token.SELECT: //add select  to Command 
     {
         acceptIt();
         Expression eAST = parseExpression();
         accept(Token.FROM);
-        Cas
-        accept();
-    }*/
+        Cases caseAST = parseCasesCases();
+        accept(Token.END);
+        finish(commandPos);
+        commandAST = new SelectCommand(eAST, caseAST, commandPos);
+        
+    }
+    break;
 
     case Token.SEMICOLON:
     case Token.END:
