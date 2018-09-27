@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author PCEsteban
  */
-public class CharacterCases extends Cases{
+public class CharacterCases extends Cases{  //TODO :creating CharacterCases class
     public CharacterCases(CharacterLiteral clAST,SourcePosition thePosition) {
         super(thePosition);
         C = clAST;

@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Andre
  */
-public class ForCommand extends Command{ //add the for command
+public class ForCommand extends Command{ //TODO :add the for command
     
     public ForCommand(Identifier iAST,Expression eAST,Expression eAST2,Command cAST,SourcePosition thePosition){
         super(thePosition);

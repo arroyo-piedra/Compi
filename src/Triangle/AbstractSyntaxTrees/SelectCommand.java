@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author PCEsteban
  */
-public class SelectCommand extends Command {
+public class SelectCommand extends Command {        //TODO :creating Select Command
     public SelectCommand (Expression eAST, Cases caseAST,
                     SourcePosition thePosition) {
     super (thePosition);

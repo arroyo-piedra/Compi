@@ -130,7 +130,7 @@ public final class Scanner {
 
     case '.':
       takeIt();
-      if (currentChar == '.'){         //Verifies if is DOTDOT or just DOT
+      if (currentChar == '.'){         //TODO :Verifies if is DOTDOT or just DOT
         takeIt();
         return Token.DOTDOT;
       } else 
@@ -180,7 +180,7 @@ public final class Scanner {
       takeIt();
       return Token.RCURLY;
       
-    case '|':               //Adding case PIPE 
+    case '|':               //TODO :Adding case PIPE 
         takeIt();
         return Token.PIPE;
         

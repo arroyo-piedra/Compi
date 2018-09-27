@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Andre
  */
-public class ElseIfCommand extends Command{ //add the else if command
+public class ElseIfCommand extends Command{ //TODO :add the else if command
 
     public ElseIfCommand (Expression eASTAux, Command cASTAux,SourcePosition thePosition) {
     super (thePosition);

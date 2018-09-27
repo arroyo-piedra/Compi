@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author PCEsteban
  */
-public abstract class Cases extends AST{
+public abstract class Cases extends AST{    //TODO :creating CASES class
 
     public Cases(SourcePosition thePosition) {
         super(thePosition);

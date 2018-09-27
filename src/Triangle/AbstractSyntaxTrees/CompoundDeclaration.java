@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Andre
  */
-public class CompoundDeclaration extends Declaration{ //add compound declaration
+public class CompoundDeclaration extends Declaration{ //TODO :add compound declaration
 
    public CompoundDeclaration(Declaration dAST1, Declaration dAST2, SourcePosition thePosition){
     super (thePosition);

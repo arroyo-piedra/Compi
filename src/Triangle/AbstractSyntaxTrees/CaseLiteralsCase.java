@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author PCEsteban
  */
-public class CaseLiteralsCase extends Cases{
+public class CaseLiteralsCase extends Cases{    //TODO :creating Case Literals Case 
     public CaseLiteralsCase(Cases caseAST,Cases caseAST2,SourcePosition thePosition) {
         super(thePosition);
         CS = caseAST;

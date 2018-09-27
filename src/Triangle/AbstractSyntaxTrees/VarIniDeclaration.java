@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Andre
  */
-public class VarIniDeclaration extends Declaration{ //add var declaration
+public class VarIniDeclaration extends Declaration{ //TODO :add var declaration
     
   public VarIniDeclaration (Identifier iAST, Expression eAST,SourcePosition thePosition) {
     super (thePosition);

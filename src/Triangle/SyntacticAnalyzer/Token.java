@@ -71,43 +71,43 @@ final class Token extends Object {
     // We eliminate the reserved word BEGIN
     // Words now have new order 
     ARRAY		= 4,
-    //BEGIN		= 5,    //ELiminate BEGIN
-    CASE                = 5,    // Adding reserved word CASE
+    //BEGIN		= 5,    //TODO :ELiminate BEGIN
+    CASE                = 5,    //TODO :Adding reserved word CASE
     CONST		= 6,
     DO			= 7,
     ELSE		= 8,
-    ELSIF               = 9,    //Adding reserved word ELSIF 
-    END			= 10,   //Changing order 
-    FOR                 = 11,   //Adding reserved word FOR
-    FROM                = 12,   //Adding reserved word FROM
+    ELSIF               = 9,    //TODO :Adding reserved word ELSIF 
+    END			= 10,   //TODO :Changing order 
+    FOR                 = 11,   //TODO :Adding reserved word FOR
+    FROM                = 12,   //TODO :Adding reserved word FROM
     FUNC		= 13,
     IF			= 14,
     IN			= 15,
     LET			= 16,
-    LOCAL               = 17,   //Adding reserved word LOCAL 
+    LOCAL               = 17,   //TODO :Adding reserved word LOCAL 
     OF			= 18,
-    NIL                 = 19,   //Adding reserved word NIL
+    NIL                 = 19,   //TODO :Adding reserved word NIL
     PROC		= 20,
     RECORD		= 21,
-    RECURSIVE           = 22,   //Adding reserved word RECURSIVE
-    REPEAT              = 23,   //Adding reserved word REPEAT
-    SELECT              = 24,   //Adding reserved word SELECT
+    RECURSIVE           = 22,   //TODO :Adding reserved word RECURSIVE
+    REPEAT              = 23,   //TODO :Adding reserved word REPEAT
+    SELECT              = 24,   //TODO :Adding reserved word SELECT
     THEN		= 25,
-    TO                  = 26,   //Adding reserved word TO
+    TO                  = 26,   //TODO :Adding reserved word TO
     TYPE		= 27,
-    UNTIL               = 28,   //Adding reserved word UNTIL
+    UNTIL               = 28,   //TODO :Adding reserved word UNTIL
     VAR			= 29,
     WHILE		= 30,
 
     // punctuation...
     DOT			= 31,
-    DOTDOT              = 32,       //Adding DOTDOT
+    DOTDOT              = 32,       //TODO :Adding DOTDOT
     COLON		= 33,
     SEMICOLON	= 34,
     COMMA		= 35,
     BECOMES		= 36,
     IS			= 37,
-    PIPE                = 38,       //Adding PIPE
+    PIPE                = 38,       //TODO :Adding PIPE
 
     // brackets...
     LPAREN		= 39,
@@ -127,31 +127,31 @@ final class Token extends Object {
     "<identifier>",
     "<operator>",
     "array",
-    //"begin",    // removing the begin token
-    "case",     //Adding CASE
+    //"begin",    //TODO :removing the begin token
+    "case",     //TODO :Adding CASE
     "const",
     "do",
     "else",
-    "elsif",   //Adding ELSIF
+    "elsif",   //TODO :Adding ELSIF
     "end",
-    "for",      //Adding FOR
-    "from",     //Adding FROM
+    "for",      //TODO :Adding FOR
+    "from",     //TODO :Adding FROM
     "func",
     "if",
     "in",
     "let",
-    "local",    //Adding LOCAL
+    "local",    //TODO :Adding LOCAL
     "of",
-    "nil",      //Adding NIL
+    "nil",      //TODO :Adding NIL
     "proc",
     "record",
-    "recursive",    //Adding RECURSIVE
-    "repeat",       //Adding REPEAT
-    "select",       //Adding SELECT
+    "recursive",    //TODO :Adding RECURSIVE
+    "repeat",       //TODO :Adding REPEAT
+    "select",       //TODO :Adding SELECT
     "then",
-    "to",           //Adding TO
+    "to",           //TODO :Adding TO
     "type",
-    "until",        //Adding UNTIL
+    "until",        //TODO :Adding UNTIL
     "var",
     "while",
     ".",
@@ -166,8 +166,8 @@ final class Token extends Object {
     "]",
     "{",
     "}",
-    "|",        //Adding PIPE
-    "..",       //Adding DOTDOT
+    "|",        //TODO :Adding PIPE
+    "..",       //TODO :Adding DOTDOT
     "",
     "<error>",
     

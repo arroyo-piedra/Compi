@@ -170,7 +170,7 @@ public final class Checker implements Visitor {
     return null;
   }
   
-  public Object visitUntilCommand(UntilCommand ast, Object o) { // add until command to the checker
+  public Object visitUntilCommand(UntilCommand ast, Object o) { //TODO :add until command to the checker
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     if (! eType.equals(StdEnvironment.booleanType))
       reporter.reportError("Boolean expression expected here", "", ast.E.position);
@@ -178,15 +178,15 @@ public final class Checker implements Visitor {
     return null;
   }
   
-    public Object visitForCommand(ForCommand aThis, Object o) { // add for command to the checker
+    public Object visitForCommand(ForCommand aThis, Object o) { //TODO :add for command to the checker
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Object visitElseIfCommand(ElseIfCommand aThis, Object o) { // add else if command to the checker
+    public Object visitElseIfCommand(ElseIfCommand aThis, Object o) { //TODO :add else if command to the checker
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //adde select commnad to the Checker
+    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add select commnad to the Checker
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -977,32 +977,32 @@ public final class Checker implements Visitor {
   }
 
     
-    public Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o) { //add proc func declaration
+    public Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o) { //TODO :add proc func declaration
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
-    public Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o) { //add recursive declaration
+    public Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o) { //TODO :add recursive declaration
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
-    public Object visitLocalDeclaration(LocalDeclaration ast, Object o) { //add local declaration
+    public Object visitLocalDeclaration(LocalDeclaration ast, Object o) { //TODO :add local declaration
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
-    public Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o) { //add compound declaration 
+    public Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o) { //TODO :add compound declaration 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
-    public Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o) { // add var inicialization declaration
+    public Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o) { //TODO :add var inicialization declaration
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
-    public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) {
+    public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) { //TODO :add array type denoter auxiliar
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -1015,32 +1015,32 @@ public final class Checker implements Visitor {
     
     
     @Override
-    public Object visitIntegerCases(IntegerCases ast, Object o) {   //add integer cases to Checker 
+    public Object visitIntegerCases(IntegerCases ast, Object o) {   //TODO :add integer cases to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitCharacterCases(CharacterCases aThis, Object o) { //add character cases to Checker 
+    public Object visitCharacterCases(CharacterCases aThis, Object o) { //TODO :add character cases to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //add case literals case to Checker 
+    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //TODO :add case literals case to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitElseCase(ElseCase aThis, Object o) { //add else case to Checker 
+    public Object visitElseCase(ElseCase aThis, Object o) { //TODO :add else case to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitCaseCases(CaseCases aThis, Object o) {   //add case cases to Checker 
+    public Object visitCaseCases(CaseCases aThis, Object o) {   //TODO :add case cases to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitCasesCases(CasesCases aThis, Object o) { //add cases cases to Checker 
+    public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :add cases cases to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

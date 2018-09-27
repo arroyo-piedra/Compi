@@ -63,10 +63,10 @@ public interface Visitor {
   public abstract Object visitTypeDeclaration(TypeDeclaration ast, Object o);
   public abstract Object visitUnaryOperatorDeclaration(UnaryOperatorDeclaration ast, Object o);
   public abstract Object visitVarDeclaration(VarDeclaration ast, Object o);
-  public abstract Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o); //add the proc func declaration
-  public abstract Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o); //add the recursive declaration
-  public abstract Object visitLocalDeclaration(LocalDeclaration ast, Object o); //add the local declaration
-  public abstract Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o); //add the compund declaration
+  public abstract Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o); //TODO :add the proc func declaration
+  public abstract Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o); //TODO :add the recursive declaration
+  public abstract Object visitLocalDeclaration(LocalDeclaration ast, Object o); //TODO :add the local declaration
+  public abstract Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o); //TODO :add the compund declaration
   public abstract Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o); //add the Var initialization declaration
 
   // Array Aggregates
@@ -109,7 +109,7 @@ public interface Visitor {
 
   public abstract Object visitMultipleFieldTypeDenoter(MultipleFieldTypeDenoter ast, Object o);
   public abstract Object visitSingleFieldTypeDenoter(SingleFieldTypeDenoter ast, Object o);
-  public abstract Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o); //add array type denoters Aux
+  public abstract Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o); //TODO :add array type denoters Aux
 
   // Literals, Identifiers and Operators
   public abstract Object visitCharacterLiteral(CharacterLiteral ast, Object o);

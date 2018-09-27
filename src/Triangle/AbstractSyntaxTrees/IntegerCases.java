@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author PCEsteban
  */
-public class IntegerCases extends Cases{ //
+public class IntegerCases extends Cases{ //TODO :creating IntegerCases class
 
     public IntegerCases(IntegerLiteral ilAST,SourcePosition thePosition) {
         super(thePosition);

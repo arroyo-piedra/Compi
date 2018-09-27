@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Andre
  */
-public class ProcFuncDeclaration extends Declaration{ //add the Proc Func Declaration
+public class ProcFuncDeclaration extends Declaration{ //TODO :add the Proc Func Declaration
     
    public ProcFuncDeclaration(Declaration dAST1, Declaration dAST2, SourcePosition thePosition){
     super (thePosition);

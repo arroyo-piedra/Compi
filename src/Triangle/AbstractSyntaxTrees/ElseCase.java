@@ -11,7 +11,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author PCEsteban
  */
-public class ElseCase extends Cases{
+public class ElseCase extends Cases{        //TODO :creating ElseCaseCommand
     public ElseCase(Command cAST,SourcePosition thePosition) {
         super(thePosition);
         C = cAST;

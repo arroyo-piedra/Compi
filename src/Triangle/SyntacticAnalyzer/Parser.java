@@ -272,21 +272,21 @@ public class Parser {
       return caseAST;
   }
   
-  Cases parseCaseLiteral() throws SyntaxError { //add case litera CASES
+  Cases parseCaseLiteral() throws SyntaxError { //TODO :add case litera CASES
       Cases caseAST = null;
       
       SourcePosition casePosition = new SourcePosition();
       start(casePosition);
       
       switch (currentToken.kind) {    
-            case Token.INTLITERAL: {    //Case Literal for IntLiteral
+            case Token.INTLITERAL: {    //TODO :Case Literal for IntLiteral
                 acceptIt();
                 IntegerLiteral ilAST = parseIntegerLiteral();
                 finish(casePosition);
                 caseAST = new IntegerCases(ilAST,casePosition);
             }					
             break;
-            case Token.CHARLITERAL: {   //Case Literal for CharLiteral
+            case Token.CHARLITERAL: {   //TODO :Case Literal for CharLiteral
                 acceptIt();
                 CharacterLiteral clAST = parseCharacterLiteral();
                 finish(casePosition);
@@ -297,7 +297,7 @@ public class Parser {
         return caseAST;
     }
         
-   Cases parseCaseLiterals() throws SyntaxError{ //creating Case Literals
+   Cases parseCaseLiterals() throws SyntaxError{ //TODO :creating Case Literals
       Cases caseAST = null;
       SourcePosition casePosition = new SourcePosition();
       start(casePosition);
@@ -306,14 +306,14 @@ public class Parser {
       
       while (currentToken.kind == Token.PIPE) {
         Cases caseAST2 = parseCaseLiteral();
-        caseAST = new CaseLiteralsCase(caseAST,caseAST2,casePosition); //add case literal case
+        caseAST = new CaseLiteralsCase(caseAST,caseAST2,casePosition); //TODO :add case literal case
       }
       return caseAST;
   }
    
    
-    Cases elseCase() throws SyntaxError{ //add else case command
-    Cases caseAST = null; // in case there's a syntactic error
+    Cases elseCase() throws SyntaxError{ //TODO :add else case command
+    Cases caseAST = null; //TODO :in case there's a syntactic error
 
     SourcePosition casePosition = new SourcePosition();
     start(casePosition);
@@ -325,8 +325,8 @@ public class Parser {
     
     }
     
-    Cases parseCaseCases() throws SyntaxError{ //add case cases  (single case)
-    Cases caseAST = null; // in case there's a syntactic error
+    Cases parseCaseCases() throws SyntaxError{ //TODO :add case cases  (single case)
+    Cases caseAST = null; //TODO :in case there's a syntactic error
 
     SourcePosition casePosition = new SourcePosition();
     start(casePosition);
@@ -341,20 +341,20 @@ public class Parser {
     }
     
     Cases parseCasesCases() throws SyntaxError{   //add cases cases 
-        Cases caseAST = null; // in case there's a syntactic error
+        Cases caseAST = null; //TODO :in case there's a syntactic error
 
         SourcePosition casePosition = new SourcePosition();
         start(casePosition);
        
             
-        while(currentToken.kind == Token.CASE){ //for CASE token (Case+)
+        while(currentToken.kind == Token.CASE){ //TODO :for CASE token (Case+)
         acceptIt();
         accept(Token.THEN);
         Cases caseAST2 = parseCaseCases();
         finish(casePosition);
         caseAST = new CasesCases(caseAST,caseAST2,casePosition);
         
-        }if (currentToken.kind == Token.ELSE){  //for ELSECASE situation [ElseCase]
+        }if (currentToken.kind == Token.ELSE){  //TODO :for ELSECASE situation [ElseCase]
         acceptIt();
         Cases ecAST = elseCase();
         finish(casePosition);
@@ -388,7 +388,7 @@ public class Parser {
     return commandAST;
   }
 
-  Command parseSingleCommand() throws SyntaxError { //modify 
+  Command parseSingleCommand() throws SyntaxError { //TODO :modify 
     Command commandAST = null; // in case there's a syntactic error  
     
     SourcePosition commandPos = new SourcePosition(); 
@@ -417,37 +417,37 @@ public class Parser {
       }
       break;
 
-    /*case Token.BEGIN: //remove case BEGIN token 
+    /*case Token.BEGIN: //TODO :remove case BEGIN token 
       acceptIt();
       commandAST = parseCommand();
       accept(Token.END);
       break;*/
 
-    case Token.LET:
+    case Token.LET:     //TODO :Changing the LET Command
       {
         acceptIt();
-        Declaration dAST = parseDeclaration();
+        Declaration dAST = parseDeclaration();       
         accept(Token.IN);
-        Command cAST = parseSingleCommand();
+        Command cAST = parseCommand();
         finish(commandPos);
         commandAST = new LetCommand(dAST, cAST, commandPos);
       }
       break;
 
-    case Token.IF: //change if token, change singleCommand to Command
+    case Token.IF: //TODO :change if token, change singleCommand to Command
       {
         acceptIt();
         Expression eAST = parseExpression();
         accept(Token.THEN);
         Command c1AST = parseCommand();
         
-        while (currentToken.kind == Token.ELSIF) { //add the ELSEIF token
+        while (currentToken.kind == Token.ELSIF) { //TODO :add the ELSEIF token
             acceptIt();
             Expression eASTAux = parseExpression();
             accept(Token.THEN);
             Command cASTAux = parseCommand();
             finish(commandPos);
-            commandAST = new ElseIfCommand(eASTAux, cASTAux, commandPos); //add else if command
+            commandAST = new ElseIfCommand(eASTAux, cASTAux, commandPos); //TODO :add else if command
           }
         
         accept(Token.ELSE);
@@ -458,21 +458,21 @@ public class Parser {
       }
       break;
     
-    case Token.REPEAT: //creating repeat token
+    case Token.REPEAT: //TODO :creating repeat token
       {
         switch (currentToken.kind){
-            case Token.WHILE: //add the WHILE repeat
+            case Token.WHILE: //TODO :add the WHILE repeat
               {
                 acceptIt();
                 Expression eAST = parseExpression();
                 accept(Token.DO);
-                Command cAST = parseCommand(); //change single command to command
-                accept(Token.END); //check the end token
+                Command cAST = parseCommand(); //TODO :change single command to command
+                accept(Token.END); //TODO :check the end token
                 finish(commandPos);
                 commandAST = new WhileCommand(eAST, cAST, commandPos);
               }
               break;
-            case Token.UNTIL : //add the UNTIL token
+            case Token.UNTIL : //TODO :add the UNTIL token
               {
                acceptIt();
                 Expression eAST = parseExpression();
@@ -480,43 +480,43 @@ public class Parser {
                 Command cAST = parseCommand();
                 accept(Token.END); 
                 finish(commandPos);
-                commandAST = new UntilCommand(eAST, cAST, commandPos); //add until command
+                commandAST = new UntilCommand(eAST, cAST, commandPos); //TODO :add until command
               }
               break;
-              case Token.DO : //add the DO token
+              case Token.DO : //TODO :add the DO token
               {
-               acceptIt(); // first command and then an expression
+               acceptIt(); //TODO :first command and then an expression
                 Command cAST = parseCommand();
                 Expression eAST;
-                switch (currentToken.kind){ //with two tokens UNTIL and WHILE
-                    case Token.WHILE: //add the WHILE token
+                switch (currentToken.kind){ //TODO :with two tokens UNTIL and WHILE
+                    case Token.WHILE: //TODO :add the WHILE token
                     {
                         accept(Token.WHILE);
                         eAST = parseExpression();
-                        accept(Token.END); //finish with END token
+                        accept(Token.END); //TODO :finish with END token
                         finish(commandPos);
                         commandAST = new WhileCommand(eAST, cAST, commandPos); 
                     }
                     break;
                     
-                    case Token.UNTIL: //add the UNTIL token
+                    case Token.UNTIL: //TODO :add the UNTIL token
                     {
                         accept(Token.UNTIL);
                         eAST = parseExpression();
-                        accept(Token.END); //finish with END token
+                        accept(Token.END); //TODO :finish with END token
                         finish(commandPos);
                         commandAST = new UntilCommand(eAST, cAST, commandPos);
                     }
                     break;
                     default:   
                         syntacticError("\"%\" invalid syntax, spected \"while\", \"until\" token on",
-                        currentToken.spelling); //Add an Syntactic Error if it don't find WHILE, or UNTIL
+                        currentToken.spelling); //TODO :Add an Syntactic Error if it don't find WHILE, or UNTIL
                      break;
                 }
                 
               } 
               break;
-              case Token.FOR: //add the FOR token
+              case Token.FOR: //TODO :add the FOR token
               {
                 acceptIt();
                 Identifier iAST = parseIdentifier();
@@ -528,19 +528,19 @@ public class Parser {
                 Command cAST = parseCommand();
                 accept(Token.END);
                 finish(commandPos);
-                commandAST = new ForCommand(iAST,eAST,eAST2,cAST,commandPos); //add for command
+                commandAST = new ForCommand(iAST,eAST,eAST2,cAST,commandPos); //TODO :add for command
               }
               break;
               default:   
               syntacticError("\"%\" invalid syntax, spected \"while\", \"until\", \"do\", \"for\" token on",
-              currentToken.spelling); //Add an Syntactic Error if it don't find WHILE, UNTIL, DO or FOR
+              currentToken.spelling); //TODO :Add an Syntactic Error if it don't find WHILE, UNTIL, DO or FOR
               
               break;
             }
         }
         break;
     
-    case Token.SELECT: //add select  to Command 
+    case Token.SELECT: //TODO :add select  to Command 
     {
         acceptIt();
         Expression eAST = parseExpression();
@@ -559,11 +559,11 @@ public class Parser {
     case Token.IN:
     case Token.EOT:
 
-      /*finish(commandPos); remove empty command
+      /*TODO :finish(commandPos); remove empty command
       commandAST = new EmptyCommand(commandPos);
       break;*/
       
-    case Token.NIL:     //Creating the new emptyCommand with NIL
+    case Token.NIL:     //TODO :Creating the new emptyCommand with NIL
     {
         acceptIt();
         finish(commandPos);
@@ -850,7 +850,7 @@ public class Parser {
         return declarationAST;
     }
 
-  Declaration parseProcFuncs() throws SyntaxError { //add proc funcs rule
+  Declaration parseProcFuncs() throws SyntaxError { //TODO :add proc funcs rule
         Declaration declarationAST = null;
         SourcePosition declarationPos = new SourcePosition();
         start(declarationPos);
@@ -865,7 +865,7 @@ public class Parser {
         return declarationAST;
     }
   
-  Declaration parseCompoundDeclaration() throws SyntaxError { //add the compound declaration
+  Declaration parseCompoundDeclaration() throws SyntaxError { //TODO :add the compound declaration
       Declaration declarationAST = null; // in case there's a syntactic error
 
       SourcePosition declarationPos = new SourcePosition();
@@ -877,7 +877,7 @@ public class Parser {
               declarationAST = parseProcFuncs();
               accept(Token.END);
               finish(declarationPos);
-              declarationAST = new RecursiveDeclaration(declarationAST, declarationPos); //add recursive declaration
+              declarationAST = new RecursiveDeclaration(declarationAST, declarationPos); //TODO :add recursive declaration
           }
           break;
 
@@ -889,7 +889,7 @@ public class Parser {
               Declaration dAST2 = parseDeclaration();
               accept(Token.END);
               finish(declarationPos);
-              declarationAST = new LocalDeclaration(dAST1, dAST2, declarationPos); //add local declaration
+              declarationAST = new LocalDeclaration(dAST1, dAST2, declarationPos); //TODO :add local declaration
           }					
           break;
 
@@ -901,17 +901,17 @@ public class Parser {
       return declarationAST;
   }
 
-  Declaration parseDeclaration() throws SyntaxError { //modify parse declaration
+  Declaration parseDeclaration() throws SyntaxError { //TODO :modify parse declaration
     Declaration declarationAST = null; // in case there's a syntactic error
 
     SourcePosition declarationPos = new SourcePosition();
     start(declarationPos);
-    declarationAST = parseCompoundDeclaration(); //modify single to compound
+    declarationAST = parseCompoundDeclaration(); //TODO :modify single to compound
     if (currentToken.kind == Token.SEMICOLON) {
       acceptIt();
-      Declaration dAST2 = parseCompoundDeclaration(); //modify single to compound
+      Declaration dAST2 = parseCompoundDeclaration(); //TODO :modify single to compound
       finish(declarationPos);
-      declarationAST = new CompoundDeclaration(declarationAST, dAST2,declarationPos); //add compound declaration
+      declarationAST = new CompoundDeclaration(declarationAST, dAST2,declarationPos); //TODO :add compound declaration
     }
     return declarationAST;
   }
@@ -935,7 +935,7 @@ public class Parser {
       }
       break;
 
-    case Token.VAR: //modify var declaration
+    case Token.VAR: //TODO :modify var declaration
       {
         acceptIt();
         Identifier iAST = parseIdentifier();
@@ -948,7 +948,7 @@ public class Parser {
             finish(declarationPos);
             declarationAST = new VarDeclaration(iAST, tAST, declarationPos);
             
-        case Token.BECOMES: //add new case with becomes
+        case Token.BECOMES: //TODO :add new case with becomes
             acceptIt();
             Expression eAST = parseExpression();
             finish(declarationPos);
@@ -965,7 +965,7 @@ public class Parser {
         FormalParameterSequence fpsAST = parseFormalParameterSequence();
         accept(Token.RPAREN);
         accept(Token.IS);
-        Command cAST = parseCommand(); //modify of parseSingleCommand to parseCommand
+        Command cAST = parseCommand(); //TODO :modify of parseSingleCommand to parseCommand
         accept(Token.END);
         finish(declarationPos);
         declarationAST = new ProcDeclaration(iAST, fpsAST, cAST, declarationPos);
