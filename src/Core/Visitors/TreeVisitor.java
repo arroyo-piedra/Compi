@@ -131,11 +131,11 @@ public class TreeVisitor implements Visitor {
     }
     
     public Object visitWhileCommand(WhileCommand ast, Object obj) {
-        return(createBinary("While Command", ast.E, ast.C));
+        return(createBinary("While Command", ast.C, ast.E));
     }
     
     public Object visitUntilCommand(UntilCommand ast, Object obj) { //TODO :add Until command in tree visitor
-        return(createBinary("Until Command", ast.E, ast.C));
+        return(createBinary("Until Command", ast.C, ast.E));
     }
     
     public Object visitForCommand(ForCommand ast, Object obj) { //TODO :add For command in tree visit
@@ -255,23 +255,23 @@ public class TreeVisitor implements Visitor {
     
        
     public Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o) { //TODO :add proc func to table visitor
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return(createBinary("Proc Func Declaration", ast.D1, ast.D2)); //add proc func declaration
     }
     
     public Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o) { //TODO :add recursive declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return(createUnary("Recursive Declaration", ast.D));  //add recursive declaration
     }
     
     public Object visitLocalDeclaration(LocalDeclaration ast, Object o) { //TODO :add local declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return(createBinary("Local Declaration", ast.D1, ast.D2)); //add local declaration
     }
     
-    public Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o) { //TODO :add compound declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCompoundDeclaration(CompoundDeclaration ast, Object o) { //TODO :add compound declaration
+        return(createBinary("Compound Declaration", ast.D1, ast.D2)); //add compound declaration
     }
     
-    public Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o) { //TODO :add var inicialization declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitVarIniDeclaration(VarIniDeclaration ast, Object o) { //TODO :add var inicialization declaration
+        return(createBinary("Var Declaration", ast.I, ast.E)); // add var declaration
     }
     
 
@@ -401,7 +401,7 @@ public class TreeVisitor implements Visitor {
         return(createBinary("Single Field Type Denoter", ast.I, ast.T));
     }
     public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) {//add tupeDenotersAux
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return(createTernary("Array Type Denoter Aux", ast.IL, ast.ILAux, ast.T));//To change body of generated methods, choose Tools | Templates.
     }
     // </editor-fold>
     
