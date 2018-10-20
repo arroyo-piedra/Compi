@@ -13,10 +13,11 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  */
 public class ElseIfCommand extends Command{ //TODO :add the else if command
 
-    public ElseIfCommand (Expression eASTAux, Command cASTAux,SourcePosition thePosition) {
+    public ElseIfCommand (Expression eAST, Expression eAST2, Command cAST,SourcePosition thePosition) {
     super (thePosition);
-    E = eASTAux;
-    C = cASTAux;
+    E = eAST;
+    E2 = eAST2;
+    C = cAST;
   }
 
   public Object visit(Visitor v, Object o) {
@@ -24,5 +25,6 @@ public class ElseIfCommand extends Command{ //TODO :add the else if command
   }
 
   public Expression E;
+  public Expression E2;
   public Command C;
 }

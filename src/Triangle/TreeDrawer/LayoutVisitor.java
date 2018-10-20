@@ -38,6 +38,8 @@ import Triangle.AbstractSyntaxTrees.CompoundDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
+import Triangle.AbstractSyntaxTrees.DoUntilCommand;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
@@ -149,6 +151,13 @@ public Object visitElseIfCommand(ElseIfCommand ast, Object o) { //TODO :add else
     return layoutBinary("ElseIfCom.", ast.E, ast.C);
 }
 
+public Object visitDoWhileCommand(DoWhileCommand ast, Object o) {
+    return layoutBinary("DoWhileCom.", ast.E, ast.C);
+}
+
+public Object visitDoUntilCommand(DoUntilCommand ast, Object o) {
+    return layoutBinary("DoUntilCom.", ast.E, ast.C);
+}
 
   // Expressions
   public Object visitArrayExpression(ArrayExpression ast, Object obj) {
@@ -638,6 +647,10 @@ public Object visitElseIfCommand(ElseIfCommand ast, Object o) { //TODO :add else
     public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add select command to LV
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
+
+    
 
 
 

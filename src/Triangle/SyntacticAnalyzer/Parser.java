@@ -38,6 +38,8 @@ import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.Declaration;
+import Triangle.AbstractSyntaxTrees.DoUntilCommand;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
@@ -443,11 +445,11 @@ public class Parser {
         
         while (currentToken.kind == Token.ELSIF) { //TODO :add the ELSEIF token
             acceptIt();
-            Expression eASTAux = parseExpression();
+            Expression eAST2 = parseExpression();
             accept(Token.THEN);
-            Command cASTAux = parseCommand();
+            Command cAST2 = parseCommand();
             finish(commandPos);
-            commandAST = new ElseIfCommand(eASTAux, cASTAux, commandPos); //TODO :add else if command
+            commandAST = new ElseIfCommand(eAST,eAST2, cAST2, commandPos); //TODO :add else if command
           }
         
         accept(Token.ELSE);
@@ -460,6 +462,7 @@ public class Parser {
     
     case Token.REPEAT: //TODO :creating repeat token
       {
+        acceptIt();
         switch (currentToken.kind){
             case Token.WHILE: //TODO :add the WHILE repeat
               {
@@ -495,7 +498,7 @@ public class Parser {
                         eAST = parseExpression();
                         accept(Token.END); //TODO :finish with END token
                         finish(commandPos);
-                        commandAST = new WhileCommand(eAST, cAST, commandPos); 
+                        commandAST = new DoWhileCommand(eAST, cAST, commandPos); 
                     }
                     break;
                     
@@ -505,7 +508,7 @@ public class Parser {
                         eAST = parseExpression();
                         accept(Token.END); //TODO :finish with END token
                         finish(commandPos);
-                        commandAST = new UntilCommand(eAST, cAST, commandPos);
+                        commandAST = new DoUntilCommand(eAST, cAST, commandPos);
                     }
                     break;
                     default:   

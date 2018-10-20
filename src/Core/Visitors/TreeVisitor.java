@@ -26,6 +26,8 @@ import Triangle.AbstractSyntaxTrees.CompoundDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
+import Triangle.AbstractSyntaxTrees.DoUntilCommand;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
@@ -141,12 +143,23 @@ public class TreeVisitor implements Visitor {
     }
     
     public Object visitElseIfCommand(ElseIfCommand ast, Object obj) { //TODO :add Else If command in tree visit
-        return(createBinary("Else If", ast.E, ast.C));
+        return(createTernary("Else If", ast.E ,ast.E2, ast.C));
     }
     
-    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add Select Command in tree visit
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitSelectCommand(SelectCommand ast, Object obj) {   //TODO :add Select Command in tree visit
+        return(createBinary("Select command", ast.E, ast.CS)); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    public Object visitDoWhileCommand(DoWhileCommand ast, Object obj) { //add Do While to treevisitor 
+        return(createBinary("Do While", ast.E, ast.C)); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    public Object visitDoUntilCommand(DoUntilCommand ast, Object o) { //add Do Until to treevisitor 
+        return(createBinary("Do Until ", ast.E, ast.C));
+    }
+
 
     /*public Object visitCaseCommand(CaseCommand aThis, Object o) { //add case command
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -536,6 +549,9 @@ public class TreeVisitor implements Visitor {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     // </editor-fold>
+
+    
+   
 
    
 

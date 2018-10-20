@@ -38,6 +38,8 @@ import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.Declaration;
+import Triangle.AbstractSyntaxTrees.DoUntilCommand;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
@@ -189,6 +191,24 @@ public final class Checker implements Visitor {
     public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add select commnad to the Checker
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public Object visitDoWhileCommand(DoWhileCommand ast, Object o) {
+        TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+    if (! eType.equals(StdEnvironment.booleanType))
+      reporter.reportError("Boolean expression expected here", "", ast.E.position);
+    ast.C.visit(this, null);
+    return null;
+    }
+    
+    @Override
+    public Object visitDoUntilCommand(DoUntilCommand ast, Object o) {
+        TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+    if (! eType.equals(StdEnvironment.booleanType))
+      reporter.reportError("Boolean expression expected here", "", ast.E.position);
+    ast.C.visit(this, null);
+    return null;
+    }
+
 
     
   // Expressions
@@ -1043,7 +1063,6 @@ public final class Checker implements Visitor {
     public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :add cases cases to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
 
 

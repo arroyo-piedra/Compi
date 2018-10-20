@@ -37,8 +37,8 @@ public interface Visitor {
   public abstract Object visitForCommand(ForCommand aThis, Object o); //add the for command to the visitor
   public abstract Object visitElseIfCommand(ElseIfCommand aThis, Object o); //add the else if command to the visitor
   public abstract Object visitSelectCommand(SelectCommand aThis, Object o); //add the select case command to the visitor
-  
-
+  public abstract Object visitDoWhileCommand(DoWhileCommand aThis, Object o); //add the Do While command to the visitor
+  public abstract Object visitDoUntilCommand(DoUntilCommand aThis, Object o);  //add do until command to visitor
 
   // Expressions
   public abstract Object visitArrayExpression(ArrayExpression ast, Object o);
@@ -124,6 +124,8 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
+
+   
 
 
   

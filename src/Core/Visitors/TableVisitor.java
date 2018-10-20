@@ -26,6 +26,8 @@ import Triangle.AbstractSyntaxTrees.CompoundDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstActualParameter;
 import Triangle.AbstractSyntaxTrees.ConstDeclaration;
 import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
+import Triangle.AbstractSyntaxTrees.DoUntilCommand;
+import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
 import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
@@ -175,15 +177,35 @@ public class TableVisitor implements Visitor {
   
    public Object visitElseIfCommand(ElseIfCommand ast, Object o) { //TODO :add else if command in table visitor
       ast.E.visit(this, null);
+      ast.E2.visit(this, null);
       ast.C.visit(this, null);
       
       return(null);
   }
    
  
-    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add select command intable visitor
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select command intable visitor
+      ast.E.visit(this, null);
+      ast.CS.visit(this, null);
+      return(null);
    }
+    
+    public Object visitDoWhileCommand(DoWhileCommand ast, Object o) {
+      ast.E.visit(this, null);
+      ast.C.visit(this, null);
+      
+      return(null);
+    }
+    
+    
+    public Object visitDoUntilCommand(DoUntilCommand ast, Object o) {
+      ast.E.visit(this, null);
+      ast.C.visit(this, null);
+      
+      return(null);
+    
+    }
+
 
     /*public Object visitCaseCommand(CaseCommand aThis, Object o) { //add case command
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -737,6 +759,9 @@ public class TableVisitor implements Visitor {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     // </editor-fold>
+
+    
+    
 
     
 
