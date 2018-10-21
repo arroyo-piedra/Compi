@@ -388,23 +388,37 @@ public class TableVisitor implements Visitor {
   
    
   public Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o) { //TODO :add proc func declaration to the visitor
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ast.D1.visit(this, null);
+      ast.D2.visit(this, null);
+      
+      return(null);
   }
   
   public Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o) { //TODO :add recursive declaration
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ast.D.visit(this, null);
+      
+      return(null);
   }
   
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) { //TODO :add local declaration
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ast.D1.visit(this, null);
+      ast.D2.visit(this, null);
+      
+      return(null);
   }
   
-    public Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o) {    //TODO :add compound declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCompoundDeclaration(CompoundDeclaration ast, Object o) {    //TODO :add compound declaration
+      ast.D1.visit(this, null);
+      ast.D2.visit(this, null);
+      
+      return(null);
     }
     
-    public Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o) {//TODO :add var inicialization declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitVarIniDeclaration(VarIniDeclaration ast, Object o) {//TODO :add var inicialization declaration
+      ast.I.visit(this, null);
+      ast.E.visit(this, null);
+      
+      return(null);
     }
 
     
@@ -635,7 +649,11 @@ public class TableVisitor implements Visitor {
   }
   
     public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) { //add type denoters Aux
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ast.IL.visit(this, null);
+      ast.ILAux.visit(this, null);
+      ast.T.visit(this, null);
+      
+      return(null);
     }
   
   // </editor-fold>
@@ -732,31 +750,46 @@ public class TableVisitor implements Visitor {
   // <editor-fold defaultstate="collapsed" desc=" Cases ">      //Add Cases section
     
     public Object visitIntegerCases(IntegerCases ast, Object o) {    //TODO :Add Integer Cases   
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ast.I.visit(this, null);
+      
+      return(null);
     }
     
 
-    public Object visitCharacterCases(CharacterCases aThis, Object o) {     //TODO :Add Character Cases
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCharacterCases(CharacterCases ast, Object o) {     //TODO :Add Character Cases
+      ast.C.visit(this, null);
+      
+      return(null);
     }
     
     
-    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //TODO :Add Case Literals Case
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :Add Case Literals Case
+      ast.CS.visit(this, null);
+      ast.CS2.visit(this, null);
+      
+      return(null);
     }
 
     
-    public Object visitElseCase(ElseCase aThis, Object o) { //TODO :Add Else Case
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitElseCase(ElseCase ast, Object o) { //TODO :Add Else Case
+      ast.C.visit(this, null);
+      
+      return(null);
     }
     
-    public Object visitCaseCases(CaseCases aThis, Object o) {   //TODO :Add Case Cases
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :Add Case Cases
+      ast.CS.visit(this, null);
+      ast.C.visit(this, null);
+      
+      return(null);
     }
     
     
-    public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :Add Cases Cases
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :Add Cases Cases
+      ast.CS.visit(this, null);
+      ast.CS2.visit(this, null);
+      
+      return(null);
     }
     // </editor-fold>
 

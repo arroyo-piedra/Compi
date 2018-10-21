@@ -582,32 +582,32 @@ public Object visitDoUntilCommand(DoUntilCommand ast, Object o) {
 
     @Override
     public Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o) { //TODO :add Proc Func Declaration 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return layoutBinary("ProcFuncDec.", ast.D1, ast.D2); //add proc func declaration
     }
 
     @Override
     public Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o) {    //TODO :add recursive declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return layoutUnary("RecursiveDec.", ast.D); //add recursive declaration
     }
 
     @Override
     public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {   //TODO :add local declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return layoutBinary("LocalDec.", ast.D1, ast.D2); //add local declaration
     }
 
     @Override
-    public Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o) {    //TODO :add compound declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCompoundDeclaration(CompoundDeclaration ast, Object o) {    //TODO :add compound declaration
+        return layoutBinary("CompoundDec.", ast.D1, ast.D2); //add compound declaration
     }
 
     @Override
-    public Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o) {    //TODO :add Var Ini Declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitVarIniDeclaration(VarIniDeclaration ast, Object o) {    //TODO :add Var Ini Declaration
+        return layoutBinary("VarIniDec.", ast.I, ast.E); //add var inicial declaration
     }
 
     @Override
     public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) { //TODO :add Array Type Denoter Auxiliar
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return layoutTernary("ArrayTypeDAux.", ast.IL, ast.ILAux, ast.T); //add array type denoter auxiliar
     }
 
     
@@ -615,37 +615,37 @@ public Object visitDoUntilCommand(DoUntilCommand ast, Object o) {
     //Cases
     @Override
     public Object visitIntegerCases(IntegerCases ast, Object o) { //TODO :add interger cases to LV
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return layoutUnary("IntegerCases.", ast.I); //add integer cases 
     }
 
     @Override
-    public Object visitCharacterCases(CharacterCases aThis, Object o) { //TODO :add character cases to LV
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCharacterCases(CharacterCases ast, Object o) { //TODO :add character cases to LV
+        return layoutUnary("Character.", ast.C); //add character cases  
     }
 
     @Override
-    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //TODO :add case literals case to LV
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :add case literals case to LV
+        return layoutBinary("CaseLitCase.", ast.CS, ast.CS2); //add case literals case
     }
 
     @Override
-    public Object visitElseCase(ElseCase aThis, Object o) { //TODO :add else case to LV
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitElseCase(ElseCase ast, Object o) { //TODO :add else case to LV
+        return layoutUnary("ElseCase.", ast.C); //add else case
     }
 
     @Override
-    public Object visitCaseCases(CaseCases aThis, Object o) {   //TODO :add case cases to LV
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :add case cases to LV
+        return layoutBinary("CaseCases.", ast.CS, ast.C); //add case cases
     }
 
     @Override
-    public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :add cases cases to LV
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :add cases cases to LV
+        return layoutBinary("CasesCases.", ast.CS, ast.CS2); //add cases cases 
     }
 
     @Override
-    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add select command to LV
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select command to LV
+        return layoutBinary("SelectCom.", ast.E, ast.CS); //add select command 
     }
 
     

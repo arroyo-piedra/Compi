@@ -398,10 +398,10 @@ public class TreeVisitor implements Visitor {
     }
     
     public Object visitSingleFieldTypeDenoter(SingleFieldTypeDenoter ast, Object obj) {
-        return(createBinary("Single Field Type Denoter", ast.I, ast.T));
+        return(createBinary("Single Field Type Denoter", ast.I, ast.T));  
     }
     public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) {//add tupeDenotersAux
-        return(createTernary("Array Type Denoter Aux", ast.IL, ast.ILAux, ast.T));//To change body of generated methods, choose Tools | Templates.
+        return(createTernary("Array Type Denoter Aux", ast.IL, ast.ILAux, ast.T));//add array type denoter aux 
     }
     // </editor-fold>
     
@@ -524,29 +524,29 @@ public class TreeVisitor implements Visitor {
   // <editor-fold defaultstate="collapsed" desc=" Cases ">      //Add Cases section
    
     public Object visitIntegerCases(IntegerCases ast, Object o) {       //TODO :Add Integer Cases
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return(createUnary("Integer Cases", ast.I)); //add integer cases 
     }
     
     
-    public Object visitCharacterCases(CharacterCases aThis, Object o) {     //TODO :Add Character Cases
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCharacterCases(CharacterCases ast, Object o) {     //TODO :Add Character Cases
+        return(createUnary("Character Cases", ast.C)); //add character cases 
     }
     
     
-    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //TODO :Add Case Literals Case
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :Add Case Literals Case
+        return(createBinary("Case Literals Case", ast.CS, ast.CS2)); //add character literals case 
     }
     
-    public Object visitElseCase(ElseCase aThis, Object o) {     //TODO :Add Else Case
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitElseCase(ElseCase ast, Object o) {     //TODO :Add Else Case
+        return(createUnary("Else Cases", ast.C)); //add else case 
     }
     
-    public Object visitCaseCases(CaseCases aThis, Object o) {   //TODO :Add Case Cases
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :Add Case Cases
+        return(createBinary("Case Cases", ast.CS, ast.C)); //add case cases 
     }
 
-    public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :Add Cases Case 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :Add Cases Case 
+        return(createBinary("Cases Cases", ast.CS, ast.CS2)); //add cases cases 
     }
     // </editor-fold>
 
