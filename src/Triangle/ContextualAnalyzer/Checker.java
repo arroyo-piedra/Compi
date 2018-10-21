@@ -50,6 +50,7 @@ import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.ErrorTypeDenoter;
 import Triangle.AbstractSyntaxTrees.FieldTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ForCommand;
+import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
 import Triangle.AbstractSyntaxTrees.FormalParameter;
 import Triangle.AbstractSyntaxTrees.FormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.FuncActualParameter;
@@ -158,7 +159,7 @@ public final class Checker implements Visitor {
     return null;
   }
 
-  public Object visitSequentialCommand(SequentialCommand ast, Object o) {
+  public Object visitSequentialCommand(SequentialCommand ast, Object o) { //add visit sequential command
     ast.C1.visit(this, null);
     ast.C2.visit(this, null);
     return null;
@@ -209,6 +210,19 @@ public final class Checker implements Visitor {
     return null;
     }
 
+    public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) { //ADD visitForTernaryDeclaration
+        idTable.enter(ast.I.spelling, ast);
+        if (ast.duplicated)
+            reporter.reportError("identifier \"%\" already declared", ast.I.spelling, ast.position);
+        else {
+            TypeDenoter eType = (TypeDenoter) ast.E.visit(this, o);
+            if (!eType.equals(StdEnvironment.integerType)) {
+                reporter.reportError("Integer expression expected here", "",
+                        ast.E.position);
+            }
+        }
+        return null;
+    }
 
     
   // Expressions
@@ -998,7 +1012,19 @@ public final class Checker implements Visitor {
 
     
     public Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o) { //TODO :add proc func declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        State currentState = idTable.state; //add proc func declaration
+        if (idTable.state != State.RECURSIVE2) {
+            idTable.state = State.RECURSIVE1;
+            ast.D1.visit(this, null);
+            ast.D2.visit(this, null);
+        }
+        if (currentState != State.RECURSIVE1) {
+            idTable.state = State.RECURSIVE2;
+            ast.D1.visit(this, null);
+            ast.D2.visit(this, null);
+            idTable.state = currentState;
+        }
+        return null;
     }
 
     
@@ -1008,17 +1034,29 @@ public final class Checker implements Visitor {
 
     
     public Object visitLocalDeclaration(LocalDeclaration ast, Object o) { //TODO :add local declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        idTable.openScope();
+        ast.D1.visit(this, null);
+        idTable.level--;
+        ast.D2.visit(this, null);
+        idTable.closeMiddleLevels();
+        return null;
     }
 
     
     public Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o) { //TODO :add compound declaration 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ast1.D1.visit(this, null); //add visit compound declaration
+        ast1.D2.visit(this, null);
+        return null;
     }
 
     
-    public Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o) { //TODO :add var inicialization declaration
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitVarIniDeclaration(VarIniDeclaration ast, Object o) { //TODO :add var inicialization declaration
+        ast.I.type = (TypeDenoter) ast.E.visit(this, null); //add var ini declaration
+        idTable.enter(ast.I.spelling, ast);
+        if (ast.duplicated) {
+            reporter.reportError("identifier \"%\" already declared", ast.I.spelling, ast.position);
+        }
+        return null;
     }
 
     
@@ -1063,7 +1101,4 @@ public final class Checker implements Visitor {
     public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :add cases cases to Checker 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
 }

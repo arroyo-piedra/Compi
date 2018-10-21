@@ -49,6 +49,7 @@ import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.Expression;
 import Triangle.AbstractSyntaxTrees.FieldTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ForCommand;
+import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
 import Triangle.AbstractSyntaxTrees.FormalParameter;
 import Triangle.AbstractSyntaxTrees.FormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.FuncActualParameter;
@@ -520,6 +521,20 @@ public class Parser {
                 
               } 
               break;
+              case Token.FOR: // Modified to be ternary
+            {
+                acceptIt();
+                Declaration dAST = parseForTernaryDeclaration();
+                accept(Token.TO);
+                Expression eAST = parseExpression();
+                accept(Token.DO);
+                acceptIt();
+                Command cAST = parseCommand();
+                accept(Token.END);
+                finish(commandPos);
+                commandAST = new ForCommand(dAST, eAST, cAST, commandPos);
+                    }
+              /*
               case Token.FOR: //TODO :add the FOR token
               {
                 acceptIt();
@@ -535,6 +550,7 @@ public class Parser {
                 commandAST = new ForCommand(iAST,eAST,eAST2,cAST,commandPos); //TODO :add for command
               }
               break;
+              */
               default:   
               syntacticError("\"%\" invalid syntax, spected \"while\", \"until\", \"do\", \"for\" token on",
               currentToken.spelling); //TODO :Add an Syntactic Error if it don't find WHILE, UNTIL, DO or FOR
@@ -853,6 +869,18 @@ public class Parser {
         }
         return declarationAST;
     }
+  Declaration parseForTernaryDeclaration() throws SyntaxError{ //Add ForTernaryDeclaration
+      Declaration declarationAST = null; // in case there's a syntactic error
+      SourcePosition declarationPos = new SourcePosition();
+      start(declarationPos);
+      accept(Token.VAR);
+      Identifier iAST = parseIdentifier();
+      accept(Token.BECOMES); //REVISAR BECOMES POR EL FROM
+      Expression eAST = parseExpression();
+      finish(declarationPos);
+      declarationAST = new ForTernaryDeclaration(iAST, eAST, declarationPos);
+      return declarationAST;
+}
 
   Declaration parseProcFuncs() throws SyntaxError { //TODO :add proc funcs rule
         Declaration declarationAST = null;

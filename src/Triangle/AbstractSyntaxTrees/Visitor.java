@@ -66,8 +66,9 @@ public interface Visitor {
   public abstract Object visitProcFuncDeclaration(ProcFuncDeclaration ast, Object o); //TODO :add the proc func declaration
   public abstract Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o); //TODO :add the recursive declaration
   public abstract Object visitLocalDeclaration(LocalDeclaration ast, Object o); //TODO :add the local declaration
-  public abstract Object visitCompoundDeclaration(CompoundDeclaration ast1, Object o); //TODO :add the compund declaration
-  public abstract Object visitVarIniDeclaration(VarIniDeclaration ast1, Object o); //add the Var initialization declaration
+  public abstract Object visitCompoundDeclaration(CompoundDeclaration ast, Object o); //TODO :add the compund declaration
+  public abstract Object visitVarIniDeclaration(VarIniDeclaration ast, Object o); //add the Var initialization declaration
+  public abstract Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o); // add the ternary var for the repeat for
 
   // Array Aggregates
   public abstract Object visitMultipleArrayAggregate(MultipleArrayAggregate ast, Object o);
@@ -124,9 +125,4 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
-
-   
-
-
-  
 }

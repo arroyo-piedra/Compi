@@ -37,6 +37,7 @@ import Triangle.AbstractSyntaxTrees.EmptyExpression;
 import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.ErrorTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ForCommand;
+import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncActualParameter;
 import Triangle.AbstractSyntaxTrees.FuncDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncFormalParameter;
@@ -139,7 +140,7 @@ public class TreeVisitor implements Visitor {
     }
     
     public Object visitForCommand(ForCommand ast, Object obj) { //TODO :add For command in tree visit
-        return(createQuaternary("For Command", ast.I,ast.E,ast.E2, ast.C));
+        return(createTernary("For Command", ast.D,ast.E,ast.C));
     }
     
     public Object visitElseIfCommand(ElseIfCommand ast, Object obj) { //TODO :add Else If command in tree visit
@@ -272,6 +273,10 @@ public class TreeVisitor implements Visitor {
     
     public Object visitVarIniDeclaration(VarIniDeclaration ast, Object o) { //TODO :add var inicialization declaration
         return(createBinary("Var Declaration", ast.I, ast.E)); // add var declaration
+    }
+    
+    public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) {
+        return(createBinary("For Ternary Declaration", ast.I, ast.E)); // add var declaration
     }
     
 
@@ -549,6 +554,8 @@ public class TreeVisitor implements Visitor {
         return(createBinary("Cases Cases", ast.CS, ast.CS2)); //add cases cases 
     }
     // </editor-fold>
+
+    
 
     
    

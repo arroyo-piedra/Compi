@@ -57,6 +57,7 @@ import Triangle.AbstractSyntaxTrees.EmptyExpression;
 import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.ErrorTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ForCommand;
+import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncActualParameter;
 import Triangle.AbstractSyntaxTrees.FuncDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncFormalParameter;
@@ -231,6 +232,14 @@ public final class Encoder implements Visitor {
     emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
     return null;
     
+    }
+    
+    public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) {
+        Frame frame = (Frame) o; //add visitor for ternary declaration
+        int extraSize = (Integer) ast.E.visit(this, frame);
+        ast.entity = new KnownAddress(Machine.addressSize, frame.level, frame.size);
+        writeTableDetails(ast);
+        return new Integer(extraSize);
     }
 
 
@@ -1136,7 +1145,5 @@ public final class Encoder implements Visitor {
     @Override
     public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :add cases cases to Encoder
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
+    }  
 }

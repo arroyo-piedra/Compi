@@ -49,6 +49,7 @@ import Triangle.AbstractSyntaxTrees.EmptyExpression;
 import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.ErrorTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ForCommand;
+import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncActualParameter;
 import Triangle.AbstractSyntaxTrees.FuncDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncFormalParameter;
@@ -144,7 +145,7 @@ public Object visitUntilCommand(UntilCommand ast, Object o) { //TODO :add until 
 }
 
 public Object visitForCommand(ForCommand ast, Object o) { //TODO :add for command in layout visitor
-    return layoutQuaternary("ForCom.",ast.I, ast.E,ast.E2, ast.C);
+    return layoutTernary("ForCom.",ast.D, ast.E, ast.C);
 }
 
 public Object visitElseIfCommand(ElseIfCommand ast, Object o) { //TODO :add else if command in layout visitor
@@ -157,6 +158,10 @@ public Object visitDoWhileCommand(DoWhileCommand ast, Object o) {
 
 public Object visitDoUntilCommand(DoUntilCommand ast, Object o) {
     return layoutBinary("DoUntilCom.", ast.E, ast.C);
+}
+
+public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) {
+     return layoutBinary("ForTernaryDeclaration.", ast.I, ast.E);
 }
 
   // Expressions
@@ -647,11 +652,4 @@ public Object visitDoUntilCommand(DoUntilCommand ast, Object o) {
     public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select command to LV
         return layoutBinary("SelectCom.", ast.E, ast.CS); //add select command 
     }
-
-    
-
-    
-
-
-
 }

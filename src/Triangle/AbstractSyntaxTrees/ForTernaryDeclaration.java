@@ -9,22 +9,21 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
 
 /**
  *
- * @author Andre
+ * @author Isaac
  */
-public class ForCommand extends Command { //TODO :add the for command
-
-    public ForCommand(Declaration dAST, Expression eAST, Command cAST, SourcePosition thePosition) {
-        super(thePosition);
-        D = dAST;
+public class ForTernaryDeclaration extends Declaration{
+    public ForTernaryDeclaration (Identifier iAST, Expression eAST, SourcePosition thePosition) {
+        super (thePosition);
+        I = iAST;
         E = eAST;
-        C = cAST;
     }
-
-    public Object visit(Visitor v, Object o) {
-        return v.visitForCommand(this, o);
-    }
-    public Declaration D;
-    public Expression E;
-    public Command C;
     
+    @Override
+    public Object visit(Visitor v, Object o) {
+        return v.visitForTernaryDeclaration(this, o);
+    }
+    
+    public Identifier I;
+    public Expression E;
+  
 }

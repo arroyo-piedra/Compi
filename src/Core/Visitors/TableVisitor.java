@@ -37,6 +37,7 @@ import Triangle.AbstractSyntaxTrees.EmptyExpression;
 import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.ErrorTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ForCommand;
+import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncActualParameter;
 import Triangle.AbstractSyntaxTrees.FuncDeclaration;
 import Triangle.AbstractSyntaxTrees.FuncFormalParameter;
@@ -160,9 +161,8 @@ public class TableVisitor implements Visitor {
   }
 
   public Object visitForCommand(ForCommand ast, Object o) { //TODO :add for command in table visitor
-      ast.I.visit(this, null);
+      ast.D.visit(this, null);
       ast.E.visit(this, null);
-      ast.E2.visit(this, null);
       ast.C.visit(this, null);
       
       return(null);
@@ -419,6 +419,12 @@ public class TableVisitor implements Visitor {
       ast.E.visit(this, null);
       
       return(null);
+    }
+    
+    public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) { //add visitor for ternary declaration for the repeat for
+        ast.I.visit(this, null);
+        ast.E.visit(this, null);
+        return (null);
     }
 
     
@@ -792,6 +798,8 @@ public class TableVisitor implements Visitor {
       return(null);
     }
     // </editor-fold>
+
+    
 
     
     
