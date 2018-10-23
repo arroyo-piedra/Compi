@@ -197,15 +197,26 @@ public final class Checker implements Visitor {
 
     public Object visitElseIfCommand(ElseIfCommand ast, Object o) { //TODO :add else if command to the checker
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-        if(! eType.equals(StdEnvironment.booleanType))
+        if (!eType.equals(StdEnvironment.booleanType)) {
             reporter.reportError("Boolean expression expected here", "", ast.E.position);
+        }
         ast.E2.visit(this, null);
         ast.C.visit(this, null);
         return null;
     }
 
-    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add select commnad to the Checker
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select commnad to the Checker
+        idTable.openScope(); //add visit select command
+        TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+        if (!eType.equals(StdEnvironment.integerType)) {
+            reporter.reportError("Integer expression expected here", "", ast.E.position);
+        }
+        if (!eType.equals(StdEnvironment.charType)) {
+            reporter.reportError("Character expression expected here", "", ast.E.position);
+        }
+        ast.CS.visit(this, null);
+        idTable.closeScope();
+        return null;
     }
 
     public Object visitDoWhileCommand(DoWhileCommand ast, Object o) {
@@ -390,51 +401,58 @@ public final class Checker implements Visitor {
 
     public Object visitFuncDeclaration(FuncDeclaration ast, Object o) { //Modified to be recursive 
         State currentState = idTable.state;
-      if (!idTable.state.equals("RECURSIVE2")){
-        ast.T = (TypeDenoter) ast.T.visit(this, null);
-        idTable.enter (ast.I.spelling, ast); // permits recursion
-        if (ast.duplicated)
-          reporter.reportError ("identifier \"%\" already declared", ast.I.spelling, ast.position);
-        if(idTable.state.equals("RECURSIVE1")){
+        if (!idTable.state.equals("RECURSIVE2")) {
+            ast.T = (TypeDenoter) ast.T.visit(this, null);
+            idTable.enter(ast.I.spelling, ast); // permits recursion
+            if (ast.duplicated) {
+                reporter.reportError("identifier \"%\" already declared", ast.I.spelling, ast.position);
+            }
+            if (idTable.state.equals("RECURSIVE1")) {
+                idTable.openScope();
+                ast.FPS.visit(this, null);
+                idTable.closeScope();
+            }
+        } else {
+            idTable.state = State.NONE;
+        }
+        if (!idTable.state.equals("RECURSIVE1")) {
             idTable.openScope();
             ast.FPS.visit(this, null);
+            TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
             idTable.closeScope();
+            if (!ast.T.equals(eType)) {
+                reporter.reportError("body of function \"%\" has wrong type", ast.I.spelling, ast.E.position);
+            }
         }
-    } else idTable.state = State.NONE;
-    if (!idTable.state.equals("RECURSIVE1")){
-        idTable.openScope();
-        ast.FPS.visit(this, null);
-        TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-        idTable.closeScope();
-        if (! ast.T.equals(eType))
-          reporter.reportError ("body of function \"%\" has wrong type", ast.I.spelling, ast.E.position);
-    }
-    idTable.state = currentState;
-    return null;
+        idTable.state = currentState;
+        return null;
     }
 
     public Object visitProcDeclaration(ProcDeclaration ast, Object o) { //Modified to be recursive
         State currentState = idTable.state;
-    if (!idTable.state.equals("RECURSIVE2")){
-        idTable.enter (ast.I.spelling, ast); // permits recursion
-        if (ast.duplicated)
-          reporter.reportError ("identifier \"%\" already declared",
-                                ast.I.spelling, ast.position);
-        if(idTable.state.equals("RECURSIVE1")){
+        if (!idTable.state.equals("RECURSIVE2")) {
+            idTable.enter(ast.I.spelling, ast); // permits recursion
+            if (ast.duplicated) {
+                reporter.reportError("identifier \"%\" already declared",
+                        ast.I.spelling, ast.position);
+            }
+            if (idTable.state.equals("RECURSIVE1")) {
+                idTable.openScope();
+                ast.FPS.visit(this, null);
+                idTable.closeScope();
+            }
+        } else {
+            idTable.state = State.NONE;
+        }
+
+        if (!idTable.state.equals("RECURSIVE1")) {
             idTable.openScope();
             ast.FPS.visit(this, null);
+            ast.C.visit(this, null);
             idTable.closeScope();
         }
-    }else idTable.state = State.NONE;
-    
-    if (!idTable.state.equals("RECURSIVE1")){
-        idTable.openScope();
-        ast.FPS.visit(this, null);
-        ast.C.visit(this, null);
-        idTable.closeScope();
-    }
-    idTable.state = currentState;
-    return null;
+        idTable.state = currentState;
+        return null;
     }
 
     public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
@@ -1060,10 +1078,10 @@ public final class Checker implements Visitor {
     }
 
     public Object visitReursiveDeclaration(RecursiveDeclaration ast, Object o) { //TODO :add recursive declaration
-        ast.D.visit(this, o); 
+        ast.D.visit(this, o);
         return null;
     }
-    
+
     public Object visitLocalDeclaration(LocalDeclaration ast, Object o) { //TODO :add local declaration
         idTable.openScope();
         ast.D1.visit(this, null);
@@ -1103,31 +1121,52 @@ public final class Checker implements Visitor {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     @Override
     public Object visitIntegerCases(IntegerCases ast, Object o) {   //TODO :add integer cases to Checker 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        idTable.openScope();
+        ast.I.visit(this, null);
+        idTable.closeScope();
+        return null;
     }
 
     @Override
-    public Object visitCharacterCases(CharacterCases aThis, Object o) { //TODO :add character cases to Checker 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCharacterCases(CharacterCases ast, Object o) { //TODO :add character cases to Checker 
+        idTable.openScope();
+        ast.C.visit(this, null); //c, de caracter
+        idTable.closeScope();
+        return null;
     }
 
     @Override
-    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //TODO :add case literals case to Checker 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :add case literals case to Checker 
+        idTable.openScope();
+        ast.CS.visit(this, null);
+        ast.CS2.visit(this, null);
+        idTable.closeScope();
+        return null;
     }
 
     @Override
-    public Object visitElseCase(ElseCase aThis, Object o) { //TODO :add else case to Checker 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitElseCase(ElseCase ast, Object o) { //TODO :add else case to Checker 
+        idTable.openScope();
+        ast.C.visit(this, null);
+        idTable.closeScope();
+        return null;
     }
 
     @Override
-    public Object visitCaseCases(CaseCases aThis, Object o) {   //TODO :add case cases to Checker 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :add case cases to Checker 
+        idTable.openScope();
+        ast.C.visit(this, null);
+        ast.CS.visit(this, null);
+        idTable.closeScope();
+        return null;
     }
 
     @Override
-    public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :add cases cases to Checker 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :add cases cases to Checker 
+        idTable.openScope();
+        ast.CS.visit(this, null);
+        ast.CS2.visit(this, null);
+        idTable.closeScope();
+        return null;
     }
 }

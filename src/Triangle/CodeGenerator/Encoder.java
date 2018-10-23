@@ -96,6 +96,7 @@ import Triangle.AbstractSyntaxTrees.SingleFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.SingleRecordAggregate;
 import Triangle.AbstractSyntaxTrees.SubscriptVname;
 import Triangle.AbstractSyntaxTrees.TypeDeclaration;
+import Triangle.AbstractSyntaxTrees.TypeDenoter;
 import Triangle.AbstractSyntaxTrees.UnaryExpression;
 import Triangle.AbstractSyntaxTrees.UnaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.UntilCommand;
@@ -234,7 +235,7 @@ public final class Encoder implements Visitor {
         return null;
     }
 
-    public Object visitSelectCommand(SelectCommand aThis, Object o) {   //TODO :add select commandto the Encoder
+    public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select commandto the Encoder
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -1181,31 +1182,46 @@ public final class Encoder implements Visitor {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     @Override
     public Object visitIntegerCases(IntegerCases ast, Object o) {   //TODO :add interger cases to Encoder
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Frame frame = (Frame) o;
+        ast.I.visit(this, frame);   //CHECK FUNCTION
+        return null;
     }
 
     @Override
-    public Object visitCharacterCases(CharacterCases aThis, Object o) { //TODO :add character cases to Encoder
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCharacterCases(CharacterCases ast, Object o) { //TODO :add character cases to Encoder
+        Frame frame = (Frame) o;
+        ast.C.visit(this, frame);   //CHECK FUNCTION
+        return null;
     }
 
     @Override
-    public Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o) { //TODO :add case literals case to Encoder
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :add case literals case to Encoder
+        Frame frame = (Frame) o;
+        ast.CS.visit(this, frame);  //CHECK FUNCTION
+        ast.CS2.visit(this, frame);
+        return null;
     }
 
     @Override
-    public Object visitElseCase(ElseCase aThis, Object o) { //TODO :add else case to Encoder
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitElseCase(ElseCase ast, Object o) { //TODO :add else case to Encoder
+        Frame frame = (Frame) o;
+        ast.C.visit(this, frame);   //CHECK FUNCTION
+        return null;
     }
 
     @Override
-    public Object visitCaseCases(CaseCases aThis, Object o) {   //TODO :add case cases to Encoder
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :add case cases to Encoder
+        Frame frame = (Frame) o;
+        ast.C.visit(this, frame);   //CHECK FUNCTION
+        ast.CS.visit(this, frame);
+        return null;
     }
 
     @Override
-    public Object visitCasesCases(CasesCases aThis, Object o) { //TODO :add cases cases to Encoder
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :add cases cases to Encoder
+        Frame frame = (Frame) o;
+        ast.CS.visit(this, frame);  //CHECK FUNCTION
+        ast.CS2.visit(this, frame);
+        return null;
     }
 }
