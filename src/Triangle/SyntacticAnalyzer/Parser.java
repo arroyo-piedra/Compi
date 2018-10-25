@@ -875,7 +875,7 @@ public class Parser {
       start(declarationPos);
       accept(Token.VAR);
       Identifier iAST = parseIdentifier();
-      accept(Token.BECOMES); //REVISAR BECOMES POR EL FROM
+      accept(Token.FROM); //REVISAR BECOMES POR EL FROM
       Expression eAST = parseExpression();
       finish(declarationPos);
       declarationAST = new ForTernaryDeclaration(iAST, eAST, declarationPos);

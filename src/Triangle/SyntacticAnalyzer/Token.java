@@ -12,7 +12,7 @@
  * of the authors.
  */
 
-package Triangle.SyntacticAnalyzer;
+package Triangle.SyntacticAnalyzer; 
 
 
 final class Token extends Object {
