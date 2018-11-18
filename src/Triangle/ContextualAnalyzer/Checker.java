@@ -206,7 +206,7 @@ public final class Checker implements Visitor {
     }
 
     public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select commnad to the Checker
-        idTable.openScope(); //add visit select command
+        //idTable.openScope(); //add visit select command
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
         if (!eType.equals(StdEnvironment.integerType)) {
             reporter.reportError("Integer expression expected here", "", ast.E.position);
@@ -215,7 +215,7 @@ public final class Checker implements Visitor {
             reporter.reportError("Character expression expected here", "", ast.E.position);
         }
         ast.CS.visit(this, null);
-        idTable.closeScope();
+        //idTable.closeScope();
         return null;
     }
 

@@ -291,6 +291,13 @@ public class Disassembler {
         writeN(instr.n);
         writeD(instr.d);
         break;
+        
+      case Machine.CASEop:
+        System.out.print ("CASE ");
+        writeN(instr.n);
+        writeD(instr.d);
+        writeR('[', instr.r, ']');
+        break;
 
       case Machine.PUSHop:
         System.out.print ("PUSH  ");
@@ -313,7 +320,7 @@ public class Disassembler {
 
       case Machine.JUMPIop:
         System.out.print ("JUMPI ");
-        break;
+        break;        
 
       case Machine.JUMPIFop:
         System.out.print ("JUMPIF");

@@ -236,7 +236,8 @@ public final class Encoder implements Visitor {
     }
 
     public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select commandto the Encoder
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Frame frame = (Frame) o;
+        return null;
     }
 
     public Object visitDoWhileCommand(DoWhileCommand ast, Object o) { //Add DoWhleCommmand to the encoder

@@ -93,13 +93,13 @@ public class Compiler {
             }
             if (reporter.numErrors == 0) {
                 System.out.println("Code Generation ...");
-                encoder.encodeRun(theAST, showingTable);	// 3rd pass
+                //encoder.encodeRun(theAST, showingTable);	// 3rd pass
             }
         }
 
 	boolean successful = (reporter.numErrors == 0);
         if (successful) {
-            encoder.saveObjectProgram(objectName);
+            //encoder.saveObjectProgram(objectName);
             System.out.println("Compilation was successful.");
         } else {
             System.out.println("Compilation was unsuccessful.");

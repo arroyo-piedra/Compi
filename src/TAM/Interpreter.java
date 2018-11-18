@@ -44,7 +44,7 @@ public class Interpreter {
   final static int
     running = 0, halted = 1, failedDataStoreFull = 2, failedInvalidCodeAddress = 3,
     failedInvalidInstruction = 4, failedOverflow = 5, failedZeroDivide = 6,
-    failedIOError = 7;
+    failedIOError = 7, caseError = 8;
 
   static long
     accumulator;
@@ -187,6 +187,9 @@ public class Interpreter {
         break;
       case halted:
         System.out.println("Program has halted normally.");
+        break;
+      case caseError:
+        System.out.println("Program has halted because of case error."); //added
         break;
       case failedDataStoreFull:
         System.out.println("Program has failed due to exhaustion of Data Store.");
@@ -539,6 +542,12 @@ public class Interpreter {
           for (index = 0; index < n; index++)
             data[addr + index] = data[ST + index];
           ST = addr + n;
+          break;
+        case Machine.CASEop:
+          if (data[ST] != n)
+            CP = d + content(r);
+          else
+            CP = CP + 1;
           break;
         case Machine.PUSHop:
           checkSpace(d);
