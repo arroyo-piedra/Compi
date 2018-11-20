@@ -1,0 +1,7 @@
+let
+  var a :=1;
+  const b ~ 5
+in
+  a:= b - 1;
+  putint (a)
+end
