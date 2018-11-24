@@ -85,8 +85,8 @@ final class Token extends Object {
     IN			= 15,
     LET			= 16,
     LOCAL               = 17,   //TODO :Adding reserved word LOCAL 
-    OF			= 18,
-    NIL                 = 19,   //TODO :Adding reserved word NIL
+    NIL                 =18,   //TODO :Adding reserved word NIL
+    OF			= 19,
     PROC		= 20,
     RECORD		= 21,
     RECURSIVE           = 22,   //TODO :Adding reserved word RECURSIVE
@@ -141,8 +141,8 @@ final class Token extends Object {
     "in",
     "let",
     "local",    //TODO :Adding LOCAL
-    "of",
     "nil",      //TODO :Adding NIL
+    "of",
     "proc",
     "record",
     "recursive",    //TODO :Adding RECURSIVE
@@ -155,19 +155,19 @@ final class Token extends Object {
     "var",
     "while",
     ".",
+    "..",  //Adding DOTDOT
     ":",
     ";",
     ",",
     ":=",
     "~",
+    "|",        //TODO :Adding PIPE
     "(",
     ")",
     "[",
     "]",
     "{",
     "}",
-    "|",        //TODO :Adding PIPE
-    "..",       //TODO :Adding DOTDOT
     "",
     "<error>",
     

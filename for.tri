@@ -1,8 +1,6 @@
-REPEAT 
-FOR 
-var a := 1 
-TO 10 DO
+repeat
 
-    putint (i)
+  for var i from 1 to 10 do
+    (putint (4));
+end
 
-end

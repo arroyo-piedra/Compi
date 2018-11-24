@@ -1,0 +1,4 @@
+repeat do put(4) while 3=3 end
+
+! OK
+!se cambio nil por put(4)

@@ -1,0 +1,11 @@
+let
+	var j:='c';
+	var i:= Integer;
+	var y:Integer
+in
+	put(4)
+end
+
+! Error contextual: Denotador de tipo en vez de una expresión
+! NO es un error sintáctico
+!se cambio nil por put(4)

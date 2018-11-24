@@ -140,6 +140,7 @@ public final class Checker implements Visitor {
     public Object visitEmptyCommand(EmptyCommand ast, Object o) { //add visit empty command
         return null;
     }
+    
 
     public Object visitIfCommand(IfCommand ast, Object o) { //add visit if command
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
@@ -961,7 +962,7 @@ public final class Checker implements Visitor {
         ProcDeclaration binding;
 
         binding = new ProcDeclaration(new Identifier(id, dummyPos), fps,
-                new EmptyCommand(dummyPos), dummyPos);
+                new EmptyCommand(dummyPos), dummyPos); //add nil
         idTable.enter(id, binding);
         return binding;
     }
@@ -1169,4 +1170,6 @@ public final class Checker implements Visitor {
         idTable.closeScope();
         return null;
     }
+
+
 }

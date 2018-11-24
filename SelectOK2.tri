@@ -1,0 +1,9 @@
+select 1+0 from !OK expresión selectora no-literal
+
+  case 1 then putint (1)
+
+  else putint (1)
+
+end
+
+! OK

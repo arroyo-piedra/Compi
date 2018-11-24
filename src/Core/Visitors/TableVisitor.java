@@ -130,6 +130,7 @@ public class TableVisitor implements Visitor {
   public Object visitEmptyCommand(EmptyCommand ast, Object o) { 
       return(null);
   }
+
   
   public Object visitIfCommand(IfCommand ast, Object o) { 
       ast.E.visit(this, null);
@@ -798,6 +799,7 @@ public class TableVisitor implements Visitor {
       return(null);
     }
     // </editor-fold>
+
 
     
 

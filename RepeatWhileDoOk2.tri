@@ -1,0 +1,4 @@
+repeat while 1=1 do put(4);put(4) end
+
+! OK
+!se cambio nil por put(4)

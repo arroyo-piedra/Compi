@@ -341,7 +341,7 @@ public class Main extends javax.swing.JFrame {
 
         desktopPane.setBackground(new java.awt.Color(0, 103, 201));
         desktopPane.setAutoscrolls(true);
-        getContentPane().add(desktopPane, java.awt.BorderLayout.LINE_START);
+        getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
         menuBar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
 

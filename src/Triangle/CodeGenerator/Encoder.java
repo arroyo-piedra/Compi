@@ -132,6 +132,7 @@ public final class Encoder implements Visitor {
     public Object visitEmptyCommand(EmptyCommand ast, Object o) {
         return null;
     }
+    
 
     public Object visitIfCommand(IfCommand ast, Object o) {
         Frame frame = (Frame) o;
@@ -1225,4 +1226,6 @@ public final class Encoder implements Visitor {
         ast.CS2.visit(this, frame);
         return null;
     }
+
+
 }

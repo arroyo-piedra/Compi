@@ -1,0 +1,9 @@
+let
+	var j:='c';
+	var i:=4 : Integer;
+	var y:Integer
+in
+	nil
+end
+
+! Error: "i" no deberí­a tener declaración de tipo

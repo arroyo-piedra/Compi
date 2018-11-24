@@ -1,0 +1,9 @@
+select 1 from 
+
+  case 1  2 then putint (12) 
+
+  case 2 then putint (2)
+
+end
+
+! Error: Al primer case le falta un "|"

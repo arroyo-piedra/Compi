@@ -123,6 +123,7 @@ public class LayoutVisitor implements Visitor {
   public Object visitEmptyCommand(EmptyCommand ast, Object obj) {
     return layoutNullary("EmptyCom.");
   }
+  
 
   public Object visitIfCommand(IfCommand ast, Object obj) {
     return layoutTernary("IfCom.", ast.E, ast.C1, ast.C2);
@@ -652,4 +653,6 @@ public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) {
     public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select command to LV
         return layoutBinary("SelectCom.", ast.E, ast.CS); //add select command 
     }
+
+
 }

@@ -1,0 +1,4 @@
+repeat do put(4);put(4) until 4=4 end
+
+! OK
+! se cambio nil por put(4)

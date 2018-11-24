@@ -1,0 +1,4 @@
+repeat for i from 5 to 6 do put(4) end
+
+! OK
+!se cambio nil por put(4)

@@ -165,6 +165,7 @@ public class Parser {
   public Program parseProgram() {
 
     Program programAST = null;
+    
 
     previousTokenPosition.start = 0;
     previousTokenPosition.finish = 0;
@@ -398,6 +399,14 @@ public class Parser {
     start(commandPos); 
 
     switch (currentToken.kind) {
+        
+    case Token.NIL:     //TODO :Creating the new emptyCommand with NIL
+    {
+        acceptIt();
+        finish(commandPos);
+        commandAST = new EmptyCommand(commandPos);
+        break;
+    }
 
     case Token.IDENTIFIER:
       {
@@ -419,6 +428,7 @@ public class Parser {
         }
       }
       break;
+    
 
     /*case Token.BEGIN: //TODO :remove case BEGIN token 
       acceptIt();
@@ -437,6 +447,7 @@ public class Parser {
         commandAST = new LetCommand(dAST, cAST, commandPos);
       }
       break;
+      
 
     case Token.IF: //TODO :change if token, change singleCommand to Command
       {
@@ -444,21 +455,22 @@ public class Parser {
         Expression eAST = parseExpression();
         accept(Token.THEN);
         Command c1AST = parseCommand();
+        Command commandAST2= c1AST;
         
-        while (currentToken.kind == Token.ELSIF) { //TODO :add the ELSEIF token
+        if (currentToken.kind == Token.ELSIF) { //TODO :add the ELSEIF token
             acceptIt();
             Expression eAST2 = parseExpression();
             accept(Token.THEN);
             Command cAST2 = parseCommand();
             finish(commandPos);
-            commandAST = new ElseIfCommand(eAST,eAST2, cAST2, commandPos); //TODO :add else if command
+            commandAST2 = new IfCommand(eAST2,cAST2, parseCommand(), commandPos); //TODO :add else if command
           }
         
         accept(Token.ELSE);
         Command c2AST = parseCommand();
         accept(Token.END);
         finish(commandPos);
-        commandAST = new IfCommand(eAST, c1AST, c2AST, commandPos);
+        commandAST = new IfCommand(eAST, c1AST, commandAST2, commandPos);
       }
       break;
     
@@ -573,23 +585,18 @@ public class Parser {
     }
     break;
 
-    case Token.SEMICOLON:
+    /*case Token.SEMICOLON: //esto no deb ería estar
     case Token.END:
     case Token.ELSE:
-    case Token.IN:
+    case Token.IN:*/
     case Token.EOT:
 
-      /*TODO :finish(commandPos); remove empty command
-      commandAST = new EmptyCommand(commandPos);
+      /*finish(commandPos); //remove empty command;
+      commandAST = new NilCommand(commandPos);
       break;*/
       
-    case Token.NIL:     //TODO :Creating the new emptyCommand with NIL
-    {
-        acceptIt();
-        finish(commandPos);
-        commandAST = new EmptyCommand(commandPos);
-    }
-    break;
+    
+    
 
     default:   
       syntacticError("\"%\" cannot start a command",
@@ -904,6 +911,13 @@ public class Parser {
       start(declarationPos);
       
       switch(currentToken.kind){
+        case Token.CONST:
+        case Token.VAR:
+        case Token.PROC:
+        case Token.FUNC:
+        case Token.TYPE:
+            declarationAST = parseSingleDeclaration();//parseSingleDeclaration se encarga de acceptarlo
+          break;
         case Token.RECURSIVE: {
               acceptIt();
               declarationAST = parseProcFuncs();
@@ -939,11 +953,11 @@ public class Parser {
     SourcePosition declarationPos = new SourcePosition();
     start(declarationPos);
     declarationAST = parseCompoundDeclaration(); //TODO :modify single to compound
-    if (currentToken.kind == Token.SEMICOLON) {
+    while (currentToken.kind == Token.SEMICOLON) {
       acceptIt();
       Declaration dAST2 = parseCompoundDeclaration(); //TODO :modify single to compound
       finish(declarationPos);
-      declarationAST = new CompoundDeclaration(declarationAST, dAST2,declarationPos); //TODO :add compound declaration
+      declarationAST = new SequentialDeclaration(declarationAST, dAST2,declarationPos); //TODO :add compound declaration
     }
     return declarationAST;
   }
@@ -972,21 +986,29 @@ public class Parser {
         acceptIt();
         Identifier iAST = parseIdentifier();
         
+        
         switch(currentToken.kind){
             
-        case Token.COLON:
+        case Token.COLON:{
+            
             acceptIt();
             TypeDenoter tAST = parseTypeDenoter();
             finish(declarationPos);
             declarationAST = new VarDeclaration(iAST, tAST, declarationPos);
+        }
+        break;
             
         case Token.BECOMES: //TODO :add new case with becomes
+        {
             acceptIt();
             Expression eAST = parseExpression();
             finish(declarationPos);
             declarationAST = new VarIniDeclaration(iAST, eAST, declarationPos); 
         }
+        break;
+       
       }
+    }
       break;
 
     case Token.PROC:

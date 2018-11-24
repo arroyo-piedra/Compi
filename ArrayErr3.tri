@@ -1,0 +1,7 @@
+let
+	var lista : array 1 .. of Integer
+in
+	nil
+end
+
+! Error: Falta segundo í­ndice
