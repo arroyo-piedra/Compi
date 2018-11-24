@@ -12,7 +12,7 @@ let
 		end
 	end
 in
-	put(4)
+	nil
 end
 
 ! OK

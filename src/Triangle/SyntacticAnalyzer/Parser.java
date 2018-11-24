@@ -540,12 +540,12 @@ public class Parser {
                 accept(Token.TO);
                 Expression eAST = parseExpression();
                 accept(Token.DO);
-                acceptIt();
                 Command cAST = parseCommand();
                 accept(Token.END);
                 finish(commandPos);
                 commandAST = new ForCommand(dAST, eAST, cAST, commandPos);
-                    }
+            }
+            break;
               /*
               case Token.FOR: //TODO :add the FOR token
               {
@@ -880,7 +880,7 @@ public class Parser {
       Declaration declarationAST = null; // in case there's a syntactic error
       SourcePosition declarationPos = new SourcePosition();
       start(declarationPos);
-      accept(Token.VAR);
+      //accept(Token.VAR);
       Identifier iAST = parseIdentifier();
       accept(Token.FROM); //REVISAR BECOMES POR EL FROM
       Expression eAST = parseExpression();
@@ -1294,10 +1294,10 @@ public class Parser {
     case Token.ARRAY: {//modify arrary token, add dotdot
         acceptIt();
         IntegerLiteral ilAST = parseIntegerLiteral();
-        if (currentToken.kind == Token.LBRACKET) {
-            accept(Token.DOTDOT);
+        if (currentToken.kind == Token.DOTDOT) {
+            //accept(Token.DOTDOT);
+            acceptIt();
             IntegerLiteral ilASTAux = parseIntegerLiteral();
-            accept(Token.RBRACKET);
             accept(Token.OF);
             TypeDenoter tASTAux = parseTypeDenoter();
             finish(typePos);

@@ -6,6 +6,7 @@
 package Triangle.AbstractSyntaxTrees;
 
 import Triangle.SyntacticAnalyzer.SourcePosition;
+import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
 
 /**
  *

@@ -1,7 +1,7 @@
 let
 	var lista : array 1 .. 10 of Integer
 in
-	put(4)
+	nil
 end
 
 ! OK
