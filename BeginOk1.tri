@@ -1,5 +1,5 @@
 let
-  var begin:= Integer
+  var begin: Integer
 in
   putint (begin);
   puteol ()

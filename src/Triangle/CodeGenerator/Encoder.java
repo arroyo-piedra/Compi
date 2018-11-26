@@ -196,7 +196,7 @@ public final class Encoder implements Visitor {
 
     public Object visitForCommand(ForCommand ast, Object o) { //TODO :add for command to the encoder
         Frame frame = (Frame) o;
-        int loopAddr, jumpAddr, idAddr, exp2Addr, extraSize, extraSize2;
+        int loopAddr, jumpAddr, idAddr, extraSize, extraSize2;
 
         extraSize = (Integer) ast.E.visit(this, frame);
 

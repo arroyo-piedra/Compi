@@ -1,4 +1,3 @@
-repeat put(4) until 4=4 end
+repeat nil until 4=4 end
 
 ! Error: Falta el do
-!se cambio nil por put(4)

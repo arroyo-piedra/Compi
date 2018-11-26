@@ -3,8 +3,7 @@ let
 	var i := 'c';
 	var y:Integer
 in
-	put(4)
+	nil
 end
 
 ! OK
-!se cambio nil por put(4)
