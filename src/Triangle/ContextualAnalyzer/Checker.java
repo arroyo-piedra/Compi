@@ -844,6 +844,14 @@ public final class Checker implements Visitor {
         } else if (binding instanceof VarDeclaration) {
             ast.type = ((VarDeclaration) binding).T;
             ast.variable = true;
+        } else if (binding instanceof VarIniDeclaration) { //ADDED
+            ast.type = ((VarIniDeclaration) binding).E.type;
+            ast.variable = true;
+            
+        } else if (binding instanceof ForTernaryDeclaration) { //ADDED
+            ast.type = ((ForTernaryDeclaration) binding).E.type;
+            ast.variable = false;
+            
         } else if (binding instanceof ConstFormalParameter) {
             ast.type = ((ConstFormalParameter) binding).T;
             ast.variable = false;
@@ -861,9 +869,17 @@ public final class Checker implements Visitor {
         TypeDenoter vType = (TypeDenoter) ast.V.visit(this, null);
         ast.variable = ast.V.variable;
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-        if (vType != StdEnvironment.errorType) {
+        if (vType != StdEnvironment.errorType) {          
             if (!(vType instanceof ArrayTypeDenoter)) {
-                reporter.reportError("array expected here", "", ast.V.position);
+                if (!(vType instanceof ArrayTypeDenoterAux)) {
+                    reporter.reportError("array expected here", "", ast.V.position);
+                } else {
+                    if (!eType.equals(StdEnvironment.integerType)) {
+                        reporter.reportError("Integer expression expected here", "",
+                                ast.E.position);
+                        }
+                ast.type = ((ArrayTypeDenoterAux) vType).T;
+            }    
             } else {
                 if (!eType.equals(StdEnvironment.integerType)) {
                     reporter.reportError("Integer expression expected here", "",
@@ -871,6 +887,9 @@ public final class Checker implements Visitor {
                 }
                 ast.type = ((ArrayTypeDenoter) vType).T;
             }
+            
+            
+            
         }
         return ast.type;
     }
