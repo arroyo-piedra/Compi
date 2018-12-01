@@ -1088,12 +1088,14 @@ public final class Checker implements Visitor {
             ast.D1.visit(this, null);
             ast.D2.visit(this, null);
         }
+        /*
         if (currentState != State.RECURSIVE1) {
             idTable.state = State.RECURSIVE2;
             ast.D1.visit(this, null);
             ast.D2.visit(this, null);
             idTable.state = currentState;
         }
+        */
         return null;
     }
 
