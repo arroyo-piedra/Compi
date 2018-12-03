@@ -17,6 +17,7 @@ import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
 import Triangle.AbstractSyntaxTrees.CaseCommand;
 import Triangle.AbstractSyntaxTrees.CaseElseCommand;
+import Triangle.AbstractSyntaxTrees.Cases;
 import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;

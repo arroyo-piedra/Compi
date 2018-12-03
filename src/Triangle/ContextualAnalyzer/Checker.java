@@ -245,10 +245,11 @@ public final class Checker implements Visitor {
     public Object notRepeatedInt(ArrayList<Expression> arrayCheck){
         
         for(int i =0; i< arrayCheck.size();i++){
-            Expression exp = arrayCheck.get(i);
+            IntegerExpression exp1 = (IntegerExpression)arrayCheck.get(i);
             for(int j = 0; j< arrayCheck.size();i++){
-                if(((IntegerExpression)arrayCheck.get(j)).equals(exp)){
-                
+                IntegerExpression exp2 = (IntegerExpression)arrayCheck.get(j);
+                if(exp1.IL.spelling.equals(exp2.IL.spelling)){
+                    reporter.reportError("Repeated integer identifier for cases", "", exp1.position);
                 }
             }
         }
@@ -259,10 +260,11 @@ public final class Checker implements Visitor {
     public Object notRepeatedChar(ArrayList<Expression> arrayCheck){
         
         for(int i =0; i< arrayCheck.size();i++){
-            Expression exp = arrayCheck.get(i);
+            CharacterExpression exp1 = (CharacterExpression)arrayCheck.get(i);
             for(int j = 0; j< arrayCheck.size();i++){
-                if(arrayCheck.get(j).equals(arrayCheck.get(i))){
-                
+                CharacterExpression exp2 = (CharacterExpression)arrayCheck.get(j);
+                if(exp1.CL.spelling.equals(exp2.CL.spelling)){
+                    reporter.reportError("Repeated character identifier for cases", "", exp1.position);                    
                 }
             }
         }
@@ -1236,8 +1238,10 @@ public final class Checker implements Visitor {
     }
 
     @Override
-    public Object visitSequentialExpression(SequentialExpression aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitSequentialExpression(SequentialExpression ast, Object o) {
+        ast.E1.visit(this, null);
+        ast.E2.visit(this, null);
+        return null;
     }
 
 

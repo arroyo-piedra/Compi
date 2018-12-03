@@ -1,7 +1,0 @@
-let
-	var lista : array 1 .. 10 of Integer
-in
-	nil
-end
-
-! OK

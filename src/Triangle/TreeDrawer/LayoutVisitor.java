@@ -29,6 +29,7 @@ import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
 import Triangle.AbstractSyntaxTrees.CaseCommand;
 import Triangle.AbstractSyntaxTrees.CaseElseCommand;
+import Triangle.AbstractSyntaxTrees.Cases;
 import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
@@ -631,7 +632,7 @@ public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) {
 
     @Override
     public Object visitCaseCommand(CaseCommand ast, Object o) {
-        return layoutBinary("Case.Declaration.",ast.EC,ast.CC); //To change body of generated methods, choose Tools | Templates.
+        return layoutBinary("Case.Declaration.",ast.EC, ast.CC); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
