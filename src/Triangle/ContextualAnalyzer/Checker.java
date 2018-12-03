@@ -1165,8 +1165,10 @@ public final class Checker implements Visitor {
     }
 
     @Override
-    public Object visitCaseCommand(CaseCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseCommand(CaseCommand ast, Object o) { //add case command
+       ast.EC.visit(this, o);
+       //ast.CC.visit(this, o);
+       return null;
     }
 
     @Override
