@@ -225,7 +225,7 @@ public final class Checker implements Visitor {
         if(ast.E instanceof IntegerExpression){
             notRepeatedInt(ArrayCases);
         } else if(ast.E instanceof CharacterExpression){
-            notRepeatedInt(ArrayCases);
+            notRepeatedChar(ArrayCases);
         }
         //idTable.closeScope();
         return null;
@@ -250,6 +250,7 @@ public final class Checker implements Visitor {
                 IntegerExpression exp2 = (IntegerExpression)arrayCheck.get(j);
                 if(exp1.IL.spelling.equals(exp2.IL.spelling)){
                     reporter.reportError("Repeated integer identifier for cases", "", exp1.position);
+                    break;
                 }
             }
         }
@@ -264,7 +265,8 @@ public final class Checker implements Visitor {
             for(int j = 0; j< arrayCheck.size();i++){
                 CharacterExpression exp2 = (CharacterExpression)arrayCheck.get(j);
                 if(exp1.CL.spelling.equals(exp2.CL.spelling)){
-                    reporter.reportError("Repeated character identifier for cases", "", exp1.position);                    
+                    reporter.reportError("Repeated character identifier for cases", "", exp1.position);  
+                    break;
                 }
             }
         }
