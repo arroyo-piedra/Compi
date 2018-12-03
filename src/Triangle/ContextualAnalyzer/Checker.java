@@ -46,6 +46,7 @@ import Triangle.AbstractSyntaxTrees.EmptyCommand;
 import Triangle.AbstractSyntaxTrees.EmptyExpression;
 import Triangle.AbstractSyntaxTrees.EmptyFormalParameterSequence;
 import Triangle.AbstractSyntaxTrees.ErrorTypeDenoter;
+import Triangle.AbstractSyntaxTrees.Expression;
 import Triangle.AbstractSyntaxTrees.FieldTypeDenoter;
 import Triangle.AbstractSyntaxTrees.ForCommand;
 import Triangle.AbstractSyntaxTrees.ForTernaryDeclaration;
@@ -103,6 +104,8 @@ import Triangle.AbstractSyntaxTrees.Visitor;
 import Triangle.AbstractSyntaxTrees.VnameExpression;
 import Triangle.AbstractSyntaxTrees.WhileCommand;
 import Triangle.SyntacticAnalyzer.SourcePosition;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public final class Checker implements Visitor {
 
@@ -208,33 +211,29 @@ public final class Checker implements Visitor {
     public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select commnad to the Checker
         //idTable.openScope(); //add visit select command
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+        /*
         if (!eType.equals(StdEnvironment.integerType)) {
             reporter.reportError("Integer expression expected here", "", ast.E.position);
         }
-        if (!eType.equals(StdEnvironment.charType)) {
+        else if (!eType.equals(StdEnvironment.charType)) {
             reporter.reportError("Character expression expected here", "", ast.E.position);
         }
-        //ast.E.type;
-        checkType(eType, ast.CS, o);
+        */
+        ArrayList<Expression> ArrayCases = new ArrayList();
+        ArrayCases = (ArrayList<Expression>)ast.CS.visit(this, o);
+        checkType(eType, ArrayCases);
         //idTable.closeScope();
         return null;
     }
-    public Object checkType(TypeDenoter orig, CasesCases cases, Object o)
-    {     
-        if(!((TypeDenoter) cases.c1.visit(this, o) == orig))
+    public Object checkType(TypeDenoter orig, ArrayList<Expression> arrayCheck)
+    {    
+        for (Expression exp : arrayCheck)
         {
-            reporter.reportError("Cases must be the same type as select", "", cases.c1.position);
-        }
-        if(cases.c2 instanceof CasesCases)
-        {
-            checkType(orig, (CasesCases) cases.c2, o);
-        }
-        else{
-            if(!((TypeDenoter) cases.c2.visit(this, o) == orig))
+            if (((TypeDenoter)exp.visit(this, null)) != orig )
             {
-            reporter.reportError("Else must be the same type as select", "", cases.c1.position);
+                reporter.reportError("Cases must be the same type as select", "", exp.position);
             }
-        }      
+        }
         return null;
     }
     
@@ -1160,20 +1159,39 @@ public final class Checker implements Visitor {
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     @Override
-    public Object visitCasesCommand(CasesCases aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCasesCommand(CasesCases ast, Object o) { //TODO
+        ArrayList<Expression> casesExp = new ArrayList(); 
+        if (ast.c1 instanceof Cases)
+        {
+            casesExp = (ArrayList<Expression>) ast.c1.visit(this, null);
+        }
+        if (ast.c1 instanceof CaseElseCommand)
+        {
+            ast.c1.visit(this, null);
+        }
+        if (ast.c2 != null)
+        {
+            if(!(ast.c2 instanceof CaseElseCommand)){
+                casesExp.addAll((Collection<? extends Expression>)ast.c2.visit(this, null));
+            }
+            else
+            {
+                ast.c2.visit(this, null);
+            }
+        }
+        return casesExp;
     }
 
     @Override
-    public Object visitCaseCommand(CaseCommand ast, Object o) { //add case command
-       ast.EC.visit(this, o);
-       //ast.CC.visit(this, o);
+    public Object visitCaseCommand(Cases ast, Object o) { //add case command
+       ast.CC.visit(this, o);
        return null;
     }
 
     @Override
-    public Object visitCaseElseCommand(CaseElseCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseElseCommand(CaseElseCommand ast, Object o) {
+        ast.CC.visit(this, o);
+        return null;
     }
 
     @Override
