@@ -222,6 +222,11 @@ public final class Checker implements Visitor {
         ArrayList<Expression> ArrayCases = new ArrayList();
         ArrayCases = (ArrayList<Expression>)ast.CS.visit(this, o);
         checkType(eType, ArrayCases);
+        if(ast.E instanceof IntegerExpression){
+            notRepeatedInt(ArrayCases);
+        } else if(ast.E instanceof CharacterExpression){
+            notRepeatedInt(ArrayCases);
+        }
         //idTable.closeScope();
         return null;
     }
@@ -234,6 +239,34 @@ public final class Checker implements Visitor {
                 reporter.reportError("Cases must be the same type as select", "", exp.position);
             }
         }
+        return null;
+    }
+    
+    public Object notRepeatedInt(ArrayList<Expression> arrayCheck){
+        
+        for(int i =0; i< arrayCheck.size();i++){
+            Expression exp = arrayCheck.get(i);
+            for(int j = 0; j< arrayCheck.size();i++){
+                if(((IntegerExpression)arrayCheck.get(j)).equals(exp)){
+                
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    public Object notRepeatedChar(ArrayList<Expression> arrayCheck){
+        
+        for(int i =0; i< arrayCheck.size();i++){
+            Expression exp = arrayCheck.get(i);
+            for(int j = 0; j< arrayCheck.size();i++){
+                if(arrayCheck.get(j).equals(arrayCheck.get(i))){
+                
+                }
+            }
+        }
+        
         return null;
     }
     
@@ -1183,9 +1216,17 @@ public final class Checker implements Visitor {
     }
 
     @Override
-    public Object visitCaseCommand(Cases ast, Object o) { //add case command
-       ast.CC.visit(this, o);
-       return null;
+    public Object visitCaseCommand(CaseCommand ast, Object o) { //add case command
+     ArrayList<Expression> arrayCheck = new ArrayList();
+     if(ast.EC instanceof SequentialExpression){
+       arrayCheck = (ArrayList<Expression>) ast.EC.visit(this, null);
+     }else{
+       arrayCheck.add(ast.EC);
+     }
+     
+     ast.CC.visit(this, null);
+     
+     return arrayCheck;
     }
 
     @Override
