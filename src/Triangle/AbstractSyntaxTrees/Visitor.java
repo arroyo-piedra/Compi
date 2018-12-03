@@ -16,19 +16,10 @@ package Triangle.AbstractSyntaxTrees;
 
 public interface Visitor {
     
-  //Cases
-  public abstract Object visitIntegerCases(IntegerCases ast, Object o); //add integer cases to visitor 
-  public abstract Object visitCharacterCases(CharacterCases aThis, Object o); //add character cases to visitor 
-  public abstract Object visitCaseLiteralsCase(CaseLiteralsCase aThis, Object o); //add case literals cases to visitor 
-  public abstract Object visitElseCase(ElseCase aThis, Object o); //add else case to visitor 
-  public abstract Object visitCaseCases(CaseCases aThis, Object o); //add case cases to visitor 
-  public abstract Object visitCasesCases(CasesCases aThis, Object o);   //add cases cases to visitor 
-  
-
   // Commands
   public abstract Object visitAssignCommand(AssignCommand ast, Object o);
   public abstract Object visitCallCommand(CallCommand ast, Object o);
- public abstract Object visitEmptyCommand(EmptyCommand ast, Object o);
+  public abstract Object visitEmptyCommand(EmptyCommand ast, Object o);
   public abstract Object visitIfCommand(IfCommand ast, Object o);
   public abstract Object visitLetCommand(LetCommand ast, Object o);
   public abstract Object visitSequentialCommand(SequentialCommand ast, Object o);
@@ -39,6 +30,9 @@ public interface Visitor {
   public abstract Object visitSelectCommand(SelectCommand aThis, Object o); //add the select case command to the visitor
   public abstract Object visitDoWhileCommand(DoWhileCommand aThis, Object o); //add the Do While command to the visitor
   public abstract Object visitDoUntilCommand(DoUntilCommand aThis, Object o);  //add do until command to visitor
+  public Object visitCasesCommand(CasesCases aThis, Object o); //add cases command
+  public Object visitCaseCommand(CaseCommand aThis, Object o); //add case command
+  public abstract Object visitCaseElseCommand(CaseElseCommand aThis,Object o); //add case else command
 
   // Expressions
   public abstract Object visitArrayExpression(ArrayExpression ast, Object o);
@@ -52,6 +46,8 @@ public interface Visitor {
   public abstract Object visitRecordExpression(RecordExpression ast, Object o);
   public abstract Object visitUnaryExpression(UnaryExpression ast, Object o);
   public abstract Object visitVnameExpression(VnameExpression ast, Object o);
+  public Object visitSequentialExpression(SequentialExpression aThis, Object o); //add visit sequential exression
+  
   
 
   // Declarations
@@ -125,4 +121,10 @@ public interface Visitor {
 
   // Programs
   public abstract Object visitProgram(Program ast, Object o);
+
+    
+
+    
+
+    
 }

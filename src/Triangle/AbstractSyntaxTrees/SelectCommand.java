@@ -12,7 +12,7 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  * @author PCEsteban
  */
 public class SelectCommand extends Command {        //TODO :creating Select Command
-    public SelectCommand (Expression eAST, Cases caseAST,
+    public SelectCommand (Expression eAST, CasesCases caseAST,
                     SourcePosition thePosition) {
     super (thePosition);
     E = eAST;
@@ -24,5 +24,5 @@ public class SelectCommand extends Command {        //TODO :creating Select Comm
   }
 
   public Expression E;
-  public Cases CS;
+  public CasesCases CS;
 }

@@ -25,11 +25,10 @@ import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
-import Triangle.AbstractSyntaxTrees.CaseCases;
-import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseElseCommand;
 import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
-import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
 import Triangle.AbstractSyntaxTrees.CompoundDeclaration;
@@ -40,7 +39,6 @@ import Triangle.AbstractSyntaxTrees.Declaration;
 import Triangle.AbstractSyntaxTrees.DoUntilCommand;
 import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
-import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -59,7 +57,6 @@ import Triangle.AbstractSyntaxTrees.Identifier;
 import Triangle.AbstractSyntaxTrees.IfCommand;
 import Triangle.AbstractSyntaxTrees.IfExpression;
 import Triangle.AbstractSyntaxTrees.IntTypeDenoter;
-import Triangle.AbstractSyntaxTrees.IntegerCases;
 import Triangle.AbstractSyntaxTrees.IntegerExpression;
 import Triangle.AbstractSyntaxTrees.IntegerLiteral;
 import Triangle.AbstractSyntaxTrees.LetCommand;
@@ -82,6 +79,7 @@ import Triangle.AbstractSyntaxTrees.RecursiveDeclaration;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
+import Triangle.AbstractSyntaxTrees.SequentialExpression;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SimpleVname;
 import Triangle.AbstractSyntaxTrees.SingleActualParameterSequence;
@@ -1142,54 +1140,23 @@ public final class Checker implements Visitor {
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     @Override
-    public Object visitIntegerCases(IntegerCases ast, Object o) {   //TODO :add integer cases to Checker 
-        idTable.openScope();
-        ast.I.visit(this, null);
-        idTable.closeScope();
-        return null;
+    public Object visitCasesCommand(CasesCases aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitCharacterCases(CharacterCases ast, Object o) { //TODO :add character cases to Checker 
-        idTable.openScope();
-        ast.C.visit(this, null); //c, de caracter
-        idTable.closeScope();
-        return null;
+    public Object visitCaseCommand(CaseCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :add case literals case to Checker 
-        idTable.openScope();
-        ast.CS.visit(this, null);
-        ast.CS2.visit(this, null);
-        idTable.closeScope();
-        return null;
+    public Object visitCaseElseCommand(CaseElseCommand aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object visitElseCase(ElseCase ast, Object o) { //TODO :add else case to Checker 
-        idTable.openScope();
-        ast.C.visit(this, null);
-        idTable.closeScope();
-        return null;
-    }
-
-    @Override
-    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :add case cases to Checker 
-        idTable.openScope();
-        ast.C.visit(this, null);
-        ast.CS.visit(this, null);
-        idTable.closeScope();
-        return null;
-    }
-
-    @Override
-    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :add cases cases to Checker 
-        idTable.openScope();
-        ast.CS.visit(this, null);
-        ast.CS2.visit(this, null);
-        idTable.closeScope();
-        return null;
+    public Object visitSequentialExpression(SequentialExpression aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

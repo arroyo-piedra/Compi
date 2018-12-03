@@ -25,11 +25,10 @@ import Triangle.AbstractSyntaxTrees.AssignCommand;
 import Triangle.AbstractSyntaxTrees.BinaryExpression;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
-import Triangle.AbstractSyntaxTrees.CaseCases;
-import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
 import Triangle.AbstractSyntaxTrees.Cases;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseElseCommand;
 import Triangle.AbstractSyntaxTrees.CasesCases;
-import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
 import Triangle.AbstractSyntaxTrees.Command;
@@ -41,7 +40,6 @@ import Triangle.AbstractSyntaxTrees.Declaration;
 import Triangle.AbstractSyntaxTrees.DoUntilCommand;
 import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
-import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -58,7 +56,6 @@ import Triangle.AbstractSyntaxTrees.FuncFormalParameter;
 import Triangle.AbstractSyntaxTrees.Identifier;
 import Triangle.AbstractSyntaxTrees.IfCommand;
 import Triangle.AbstractSyntaxTrees.IfExpression;
-import Triangle.AbstractSyntaxTrees.IntegerCases;
 //import Triangle.AbstractSyntaxTrees.IntegerDeclaration;
 import Triangle.AbstractSyntaxTrees.IntegerExpression;
 import Triangle.AbstractSyntaxTrees.IntegerLiteral;
@@ -83,6 +80,7 @@ import Triangle.AbstractSyntaxTrees.RecursiveDeclaration;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
+import Triangle.AbstractSyntaxTrees.SequentialExpression;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SimpleVname;
 import Triangle.AbstractSyntaxTrees.SingleActualParameterSequence;
@@ -267,30 +265,89 @@ public class Parser {
 //
 ///////////////////////////////////////////////////////////////////////////////
   
-  Cases parseCase() throws SyntaxError {
-      Cases caseAST = null;
-      SourcePosition casePosition = new SourcePosition();
-      start(casePosition);
-      accept(Token.CASE);
-      
-      return caseAST;
+  CasesCases parseCases() throws SyntaxError{
+    CasesCases commandAST;
+    SourcePosition commandPos = new SourcePosition();
+    start(commandPos);
+    Cases c1AST = parseCase();
+    Cases c2AST = parseElseCases();
+    finish(commandPos);
+    commandAST = new CasesCases(c1AST, c2AST, commandPos);
+    return commandAST;
   }
   
-  Cases parseCaseLiteral() throws SyntaxError { //TODO :add case litera CASES
-      Cases caseAST = null;
+  Cases parseElseCases() throws SyntaxError{
+    Cases commandAST = null;
+     
+     SourcePosition commandPos = new SourcePosition();
+     start(commandPos);
+     switch(currentToken.kind){
+      case Token.CASE:
+        {
+          Cases c1AST = parseCase();
+          finish(commandPos);
+          commandAST = new CasesCases(c1AST, parseElseCases(), commandPos); // Se utiliza parseElsif porque debe llamarse recursivamente a si mismo (y devuelve un command)
+        }
+        break;
+        
+        case Token.ELSE:
+        {
+          Cases elseAST = parseElseCase();          
+          finish(commandPos);
+          commandAST = elseAST;
+        }
+        break;
+        
+        case Token.END:
+            break;   
+      default: // error tomado del metodo parseSingleCommand
+      syntacticError("\"%\" cannot start a Elsifcommand",currentToken.spelling);
+      break;
+    }
+     return commandAST; 
+  }
+  
+  CaseCommand parseCase() throws SyntaxError{
+      CaseCommand declarationAST = null;
+      SourcePosition parseCasePos = new SourcePosition();
+      start(parseCasePos);
+      accept(Token.CASE);
+      Expression caseLiterals =  parseCaseLiterals();
+      accept(Token.THEN);
+      Command commandAST = parseCommand();
+      finish(parseCasePos); 
+      declarationAST = new CaseCommand(caseLiterals,commandAST,parseCasePos);
+      return declarationAST;
+  }
+  
+  CaseElseCommand parseElseCase() throws SyntaxError{
+    CaseElseCommand commandCaseElseAST = null; // in case there's a syntactic error
+    Command commandElse = null;
+    SourcePosition commandPos = new SourcePosition();
+    start(commandPos);
+    
+    accept(Token.ELSE);
+    commandElse = parseCommand();           
+    finish(commandPos);
+    commandCaseElseAST = new CaseElseCommand(commandElse,commandPos);
+    return commandCaseElseAST;
+  }
+  
+  /*CasesCases parseCaseLiteral() throws SyntaxError { //TODO :add case litera CASES
+      CasesCases caseAST = null;
       
       SourcePosition casePosition = new SourcePosition();
       start(casePosition);
       
       switch (currentToken.kind) {    
-            case Token.INTLITERAL: {    //TODO :Case Literal for IntLiteral
+            case Token.INTLITERAL: {    //TODO :Cases Literal for IntLiteral
                 acceptIt();
                 IntegerLiteral ilAST = parseIntegerLiteral();
                 finish(casePosition);
                 caseAST = new IntegerCases(ilAST,casePosition);
             }					
             break;
-            case Token.CHARLITERAL: {   //TODO :Case Literal for CharLiteral
+            case Token.CHARLITERAL: {   //TODO :Cases Literal for CharLiteral
                 acceptIt();
                 CharacterLiteral clAST = parseCharacterLiteral();
                 finish(casePosition);
@@ -301,23 +358,23 @@ public class Parser {
         return caseAST;
     }
         
-   Cases parseCaseLiterals() throws SyntaxError{ //TODO :creating Case Literals
-      Cases caseAST = null;
+   CasesCases parseCaseLiterals() throws SyntaxError{ //TODO :creating Cases Literals
+      CasesCases caseAST = null;
       SourcePosition casePosition = new SourcePosition();
       start(casePosition);
       
       caseAST = parseCaseLiteral();
       
       while (currentToken.kind == Token.PIPE) {
-        Cases caseAST2 = parseCaseLiteral();
+        CasesCases caseAST2 = parseCaseLiteral();
         caseAST = new CaseLiteralsCase(caseAST,caseAST2,casePosition); //TODO :add case literal case
       }
       return caseAST;
   }
    
    
-    Cases elseCase() throws SyntaxError{ //TODO :add else case command
-    Cases caseAST = null; //TODO :in case there's a syntactic error
+    CasesCases elseCase() throws SyntaxError{ //TODO :add else case command
+    CasesCases caseAST = null; //TODO :in case there's a syntactic error
 
     SourcePosition casePosition = new SourcePosition();
     start(casePosition);
@@ -329,13 +386,13 @@ public class Parser {
     
     }
     
-    Cases parseCaseCases() throws SyntaxError{ //TODO :add case cases  (single case)
-    Cases caseAST = null; //TODO :in case there's a syntactic error
+    CasesCases parseCaseCases() throws SyntaxError{ //TODO :add case cases  (single case)
+    CasesCases caseAST = null; //TODO :in case there's a syntactic error
 
     SourcePosition casePosition = new SourcePosition();
     start(casePosition);
     accept(Token.CASE);
-    Cases caseAST2 = parseCaseLiterals();
+    CasesCases caseAST2 = parseCaseLiterals();
     accept(Token.THEN);
     Command cAST = parseCommand();
     finish(casePosition);
@@ -344,28 +401,39 @@ public class Parser {
     
     }
     
-    Cases parseCasesCases() throws SyntaxError{   //add cases cases 
-        Cases caseAST = null; //TODO :in case there's a syntactic error
+    /*CasesCases parseCasesCases() throws SyntaxError{   //add cases cases 
+        CasesCases caseAST = null; //TODO :in case there's a syntactic error
 
         SourcePosition casePosition = new SourcePosition();
         start(casePosition);
        
             
-        while(currentToken.kind == Token.CASE){ //TODO :for CASE token (Case+)
+        while(currentToken.kind == Token.CASE){ //TODO :for CASE token (Cases+)
         acceptIt();
         accept(Token.THEN);
-        Cases caseAST2 = parseCaseCases();
+        CasesCases caseAST2 = parseCaseCases();
         finish(casePosition);
         caseAST = new CasesCases(caseAST,caseAST2,casePosition);
         
         }if (currentToken.kind == Token.ELSE){  //TODO :for ELSECASE situation [ElseCase]
         acceptIt();
-        Cases ecAST = elseCase();
+        CasesCases ecAST = elseCase();
         finish(casePosition);
         caseAST = new CasesCases(caseAST,ecAST,casePosition);
         }
         return caseAST;
-    }
+    }*/
+    
+    /*CasesCases parseCases() throws SyntaxError{
+        CasesCases commandAST;
+        SourcePosition commandPos = new SourcePosition();
+        start(commandPos);
+        Cases c1AST = parseCase();
+        Cases c2AST = parseElseCases();
+        finish(commandPos);
+        commandAST = new CasesCases(c1AST, c2AST, commandPos);
+        return commandAST;
+  }*/
     
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -375,6 +443,52 @@ public class Parser {
 
 // parseCommand parses the command, and constructs an AST
 // to represent its phrase structure.
+  
+  
+  
+  ////////////////////////MAS CASES///////////////////////
+  Expression parseCaseLiterals()throws SyntaxError {
+    Expression expressionAST = null; // in case there's a syntactic error
+    SourcePosition expresionPos = new SourcePosition();
+    start(expresionPos);
+    
+    expressionAST = parseCaseLiteral();
+    while (currentToken.kind == Token.PIPE) {
+      acceptIt();
+      Expression nextExpressionAST =  parseCaseLiteral();
+      finish(expresionPos);
+      expressionAST = new SequentialExpression(nextExpressionAST,expressionAST,expresionPos);
+    }
+    return expressionAST;
+  }
+  
+  Expression parseCaseLiteral() throws SyntaxError{
+    Expression expresionAST = null; // in case there's a syntactic error
+    SourcePosition expresionPos = new SourcePosition();
+    
+    start(expresionPos);
+    
+    switch(currentToken.kind){
+        case Token.INTLITERAL:{
+          IntegerLiteral ilAST  = parseIntegerLiteral();
+          finish(expresionPos);
+          expresionAST = new IntegerExpression(ilAST,expresionPos);
+        }break;
+        case Token.CHARLITERAL:{
+          CharacterLiteral chAST  = parseCharacterLiteral();
+          finish(expresionPos);
+          expresionAST = new CharacterExpression(chAST,expresionPos);
+        }break;
+        default:
+        syntacticError("\"%\" It isn't a case literal",currentToken.spelling);
+        break;
+    }
+    
+    return expresionAST;
+  }
+  
+  
+  //////////////////////////////////////////////////////////////
   
   Command parseCommand() throws SyntaxError {
     Command commandAST = null; // in case there's a syntactic error
@@ -572,18 +686,30 @@ public class Parser {
         }
         break;
     
-    case Token.SELECT: //TODO :add select  to Command 
+    /*case Token.SELECT: //TODO :add select  to Command 
     {
         acceptIt();
         Expression eAST = parseExpression();
         accept(Token.FROM);
-        Cases caseAST = parseCasesCases();
+        CasesCases caseAST = parseCasesCases();
         accept(Token.END);
         finish(commandPos);
         commandAST = new SelectCommand(eAST, caseAST, commandPos);
         
-    }
-    break;
+    }*/
+
+       
+     case Token.SELECT:
+     {
+        acceptIt();
+        Expression eAST = parseExpression();
+        accept(Token.FROM);
+        CasesCases casesAST = parseCases();
+        accept(Token.END);
+        finish(commandPos);
+        commandAST = new SelectCommand(eAST,casesAST,commandPos);
+     }
+     break;
 
     /*case Token.SEMICOLON: //esto no deb ería estar
     case Token.END:

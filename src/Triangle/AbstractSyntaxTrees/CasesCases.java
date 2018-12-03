@@ -9,20 +9,23 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
 
 /**
  *
- * @author PCEsteban
+ * @author Andre
  */
-public class CasesCases extends Cases{  //TODO :creating CasesCases class
-    public CasesCases(Cases caseAST,Cases caseAST2,SourcePosition thePosition) {
-        super(thePosition);
-        CS = caseAST;
-        CS2 = caseAST2;
-        
-    }
-
-    public Object visit(Visitor v, Object o) {
-        return v.visitCasesCases(this, o);
-    }
+public class CasesCases extends Cases{
+   
+  public CasesCases(Cases case1, Cases case2,SourcePosition thePosition) {
+        super(null,thePosition);
+        this.c1 = case1;
+        this.c2 = case2;
+  }
+ 
     
-    public Cases CS;
-    public Cases CS2;
+  @Override
+  public Object visit(Visitor v, Object o) {
+    return v.visitCasesCommand(this, o);
+  } 
+  
+  public Cases c1;
+  public Cases c2; 
+    
 }

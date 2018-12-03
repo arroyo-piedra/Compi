@@ -15,11 +15,10 @@ import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
-import Triangle.AbstractSyntaxTrees.CaseCases;
-import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseElseCommand;
 import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
-import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
 import Triangle.AbstractSyntaxTrees.CompoundDeclaration;
@@ -29,7 +28,6 @@ import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.DoUntilCommand;
 import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
-import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -45,7 +43,6 @@ import Triangle.AbstractSyntaxTrees.Identifier;
 import Triangle.AbstractSyntaxTrees.IfCommand;
 import Triangle.AbstractSyntaxTrees.IfExpression;
 import Triangle.AbstractSyntaxTrees.IntTypeDenoter;
-import Triangle.AbstractSyntaxTrees.IntegerCases;
 import Triangle.AbstractSyntaxTrees.IntegerExpression;
 import Triangle.AbstractSyntaxTrees.IntegerLiteral;
 import Triangle.AbstractSyntaxTrees.LetCommand;
@@ -68,6 +65,7 @@ import Triangle.AbstractSyntaxTrees.RecursiveDeclaration;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
+import Triangle.AbstractSyntaxTrees.SequentialExpression;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SimpleVname;
 import Triangle.AbstractSyntaxTrees.SingleActualParameterSequence;
@@ -206,6 +204,27 @@ public class TableVisitor implements Visitor {
       return(null);
     
     }
+    
+    public Object visitCaseCommand(CaseCommand ast, Object o) { //add case command
+        ast.EC.visit(this, null);
+        ast.CC.visit(this, null);
+        return(null);
+    }
+    
+    public Object visitCasesCommand(CasesCases ast, Object o) { //add cases command
+        if(ast.c2 != null){
+          ast.c1.visit(this, null);
+          ast.c2.visit(this, null);
+        }else{ 
+          ast.c1.visit(this, null); 
+        }
+        return(null);
+    }
+    
+    public Object visitCaseElseCommand(CaseElseCommand ast, Object o) { //add case else command
+        ast.CC.visit(this, null);
+        return(null);
+    }
 
 
     /*public Object visitCaseCommand(CaseCommand aThis, Object o) { //add case command
@@ -286,6 +305,11 @@ public class TableVisitor implements Visitor {
       
       return(null);
   }
+  
+    public Object visitSequentialExpression(SequentialExpression ast, Object o) { //add sequential expression
+        ast.E1.visit(this, null);
+        ast.E2.visit(this, null);
+        return(null);    }
   
     /*public Object visitCaseLiteralExpression(CaseLiteralExpression ast, Object o) { //add case literal expression
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -753,83 +777,8 @@ public class TableVisitor implements Visitor {
   // <editor-fold defaultstate="collapsed" desc=" Attributes ">
     private DefaultTableModel model;
     // </editor-fold>
-    
-  // <editor-fold defaultstate="collapsed" desc=" Cases ">      //Add Cases section
-    
-    public Object visitIntegerCases(IntegerCases ast, Object o) {    //TODO :Add Integer Cases   
-      ast.I.visit(this, null);
-      
-      return(null);
-    }
-    
-
-    public Object visitCharacterCases(CharacterCases ast, Object o) {     //TODO :Add Character Cases
-      ast.C.visit(this, null);
-      
-      return(null);
-    }
-    
-    
-    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :Add Case Literals Case
-      ast.CS.visit(this, null);
-      ast.CS2.visit(this, null);
-      
-      return(null);
-    }
-
-    
-    public Object visitElseCase(ElseCase ast, Object o) { //TODO :Add Else Case
-      ast.C.visit(this, null);
-      
-      return(null);
-    }
-    
-    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :Add Case Cases
-      ast.CS.visit(this, null);
-      ast.C.visit(this, null);
-      
-      return(null);
-    }
-    
-    
-    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :Add Cases Cases
-      ast.CS.visit(this, null);
-      ast.CS2.visit(this, null);
-      
-      return(null);
-    }
-    // </editor-fold>
-
-
-    
 
     
     
 
-    
-
-    
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 }

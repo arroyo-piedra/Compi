@@ -27,11 +27,10 @@ import Triangle.AbstractSyntaxTrees.BinaryOperatorDeclaration;
 import Triangle.AbstractSyntaxTrees.BoolTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
-import Triangle.AbstractSyntaxTrees.CaseCases;
-import Triangle.AbstractSyntaxTrees.CaseLiteralsCase;
+import Triangle.AbstractSyntaxTrees.CaseCommand;
+import Triangle.AbstractSyntaxTrees.CaseElseCommand;
 import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
-import Triangle.AbstractSyntaxTrees.CharacterCases;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
 import Triangle.AbstractSyntaxTrees.CharacterLiteral;
 import Triangle.AbstractSyntaxTrees.CompoundDeclaration;
@@ -41,7 +40,6 @@ import Triangle.AbstractSyntaxTrees.ConstFormalParameter;
 import Triangle.AbstractSyntaxTrees.DoUntilCommand;
 import Triangle.AbstractSyntaxTrees.DoWhileCommand;
 import Triangle.AbstractSyntaxTrees.DotVname;
-import Triangle.AbstractSyntaxTrees.ElseCase;
 import Triangle.AbstractSyntaxTrees.ElseIfCommand;
 import Triangle.AbstractSyntaxTrees.EmptyActualParameterSequence;
 import Triangle.AbstractSyntaxTrees.EmptyCommand;
@@ -57,7 +55,6 @@ import Triangle.AbstractSyntaxTrees.Identifier;
 import Triangle.AbstractSyntaxTrees.IfCommand;
 import Triangle.AbstractSyntaxTrees.IfExpression;
 import Triangle.AbstractSyntaxTrees.IntTypeDenoter;
-import Triangle.AbstractSyntaxTrees.IntegerCases;
 import Triangle.AbstractSyntaxTrees.IntegerExpression;
 import Triangle.AbstractSyntaxTrees.IntegerLiteral;
 import Triangle.AbstractSyntaxTrees.LetCommand;
@@ -80,6 +77,7 @@ import Triangle.AbstractSyntaxTrees.RecursiveDeclaration;
 import Triangle.AbstractSyntaxTrees.SelectCommand;
 import Triangle.AbstractSyntaxTrees.SequentialCommand;
 import Triangle.AbstractSyntaxTrees.SequentialDeclaration;
+import Triangle.AbstractSyntaxTrees.SequentialExpression;
 import Triangle.AbstractSyntaxTrees.SimpleTypeDenoter;
 import Triangle.AbstractSyntaxTrees.SimpleVname;
 import Triangle.AbstractSyntaxTrees.SingleActualParameterSequence;
@@ -619,39 +617,31 @@ public Object visitForTernaryDeclaration(ForTernaryDeclaration ast, Object o) {
     
     
     //Cases
-    @Override
-    public Object visitIntegerCases(IntegerCases ast, Object o) { //TODO :add interger cases to LV
-        return layoutUnary("IntegerCases.", ast.I); //add integer cases 
-    }
-
-    @Override
-    public Object visitCharacterCases(CharacterCases ast, Object o) { //TODO :add character cases to LV
-        return layoutUnary("Character.", ast.C); //add character cases  
-    }
-
-    @Override
-    public Object visitCaseLiteralsCase(CaseLiteralsCase ast, Object o) { //TODO :add case literals case to LV
-        return layoutBinary("CaseLitCase.", ast.CS, ast.CS2); //add case literals case
-    }
-
-    @Override
-    public Object visitElseCase(ElseCase ast, Object o) { //TODO :add else case to LV
-        return layoutUnary("ElseCase.", ast.C); //add else case
-    }
-
-    @Override
-    public Object visitCaseCases(CaseCases ast, Object o) {   //TODO :add case cases to LV
-        return layoutBinary("CaseCases.", ast.CS, ast.C); //add case cases
-    }
-
-    @Override
-    public Object visitCasesCases(CasesCases ast, Object o) { //TODO :add cases cases to LV
-        return layoutBinary("CasesCases.", ast.CS, ast.CS2); //add cases cases 
-    }
 
     @Override
     public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select command to LV
         return layoutBinary("SelectCom.", ast.E, ast.CS); //add select command 
+    }
+
+
+    @Override
+    public Object visitCasesCommand(CasesCases aThis, Object o) {
+        return layoutBinary("Select.Cases", aThis.c1,aThis.c2); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object visitCaseCommand(CaseCommand ast, Object o) {
+        return layoutBinary("Case.Declaration.",ast.EC,ast.CC); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object visitCaseElseCommand(CaseElseCommand aThis, Object o) {
+         return layoutUnary("Selec.Else", aThis.CC);
+    }
+
+    @Override
+    public Object visitSequentialExpression(SequentialExpression aThis, Object o) {
+        return layoutBinary("Seq.Expre.", aThis.E1, aThis.E2);
     }
 
 

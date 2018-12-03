@@ -1,0 +1,10 @@
+select 0 from
+  case 1 | 2 | 3 then putint (123)
+  case 4 then
+! comienza select anidado
+    select 1 from
+      case 1 then putint (1) !OK, está en select anidado
+      else putint (2)
+    end
+! terminó select anidado
+end

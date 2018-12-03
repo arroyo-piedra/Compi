@@ -11,12 +11,21 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Andre
  */
-public abstract class Cases extends Command{ //add case command
-    public Command CC;
+public class SequentialExpression extends Expression{
     
-    public Cases(Command c1AST,SourcePosition thePosition) {
+
+
+    public SequentialExpression(Expression eAST1, Expression eAST2, SourcePosition thePosition) {
         super(thePosition);
-        CC = c1AST;
+        E1 = eAST1;
+        E2 = eAST2;
     }
+
+   
+    public Object visit(Visitor v, Object o) {
+        return v.visitSequentialExpression(this, o);
+    }
+    
+    public Expression E1,E2;
     
 }

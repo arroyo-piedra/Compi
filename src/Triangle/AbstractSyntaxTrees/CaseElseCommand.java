@@ -11,12 +11,14 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Andre
  */
-public abstract class Cases extends Command{ //add case command
-    public Command CC;
+public class CaseElseCommand extends Cases{
     
-    public Cases(Command c1AST,SourcePosition thePosition) {
-        super(thePosition);
-        CC = c1AST;
+    public CaseElseCommand(Command commandElse,SourcePosition thePosition) {
+        super(commandElse,thePosition);
+    }
+
+    public Object visit(Visitor v, Object o) {
+        return v.visitCaseElseCommand(this,o);
     }
     
 }
