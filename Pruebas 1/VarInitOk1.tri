@@ -1,0 +1,10 @@
+let
+	var j:=5;
+	var i := 'c';
+	var y:Integer
+in
+	put(4)
+end
+
+! OK
+!se cambio nil por put(4)

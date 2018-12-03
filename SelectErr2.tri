@@ -1,9 +1,8 @@
-select 1 from
+select '1' from
 
-  case  then putint (1)
+  case '1' | '2' | 3 then putint (12) !3 no es un carácter
 
-  case 2 then putint (2)
+  case '4' then putint (2)
 
 end
-
-! Error: El primer case no tiene literales
+ 

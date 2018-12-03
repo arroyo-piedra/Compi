@@ -27,6 +27,7 @@ import Triangle.AbstractSyntaxTrees.CallCommand;
 import Triangle.AbstractSyntaxTrees.CallExpression;
 import Triangle.AbstractSyntaxTrees.CaseCommand;
 import Triangle.AbstractSyntaxTrees.CaseElseCommand;
+import Triangle.AbstractSyntaxTrees.Cases;
 import Triangle.AbstractSyntaxTrees.CasesCases;
 import Triangle.AbstractSyntaxTrees.CharTypeDenoter;
 import Triangle.AbstractSyntaxTrees.CharacterExpression;
@@ -213,11 +214,30 @@ public final class Checker implements Visitor {
         if (!eType.equals(StdEnvironment.charType)) {
             reporter.reportError("Character expression expected here", "", ast.E.position);
         }
-        ast.CS.visit(this, null);
+        //ast.E.type;
+        checkType(eType, ast.CS, o);
         //idTable.closeScope();
         return null;
     }
-
+    public Object checkType(TypeDenoter orig, CasesCases cases, Object o)
+    {     
+        if(!((TypeDenoter) cases.c1.visit(this, o) == orig))
+        {
+            reporter.reportError("Cases must be the same type as select", "", cases.c1.position);
+        }
+        if(cases.c2 instanceof CasesCases)
+        {
+            checkType(orig, (CasesCases) cases.c2, o);
+        }
+        else{
+            if(!((TypeDenoter) cases.c2.visit(this, o) == orig))
+            {
+            reporter.reportError("Else must be the same type as select", "", cases.c1.position);
+            }
+        }      
+        return null;
+    }
+    
     public Object visitDoWhileCommand(DoWhileCommand ast, Object o) {
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
         if (!eType.equals(StdEnvironment.booleanType)) {

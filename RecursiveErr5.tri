@@ -1,13 +1,21 @@
-let
-	recursive
-		func doble(var i : Integer) : Integer ~
-			triplicar(i)/3*2
-		|
-		proc triplicar(var i : Integer) ~
-			i := i + doble(i)
-		end
-in
-	nil
-end
+! Declaraciones mutuamente recursivas, con número de parámetros
+! incorrecto
 
-! Error: Falta el end del recursive
+
+let
+
+  recursive
+
+    func f (a : Integer): Integer ~ if a > 0 then g(a - 1) else 0
+
+    |
+
+    func g (b : Integer, c: Boolean): Integer ~ if c then f(1) else 0
+
+  end
+
+in
+
+  putint(f(10))
+
+end

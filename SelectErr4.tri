@@ -1,13 +1,7 @@
-select 1 from
+select '1' from
 
-  case 1 then putint (1)
+  case '1' | '2' | '1' then putint (12) !etiqueta repetida
 
-  case 2 then putint (2)
-
-  else  putint (0)
-
-  else
+  case '4' then putint (2)
 
 end
-
-! Error: Sobra un else

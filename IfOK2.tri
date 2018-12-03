@@ -1,0 +1,16 @@
+! con elsifs
+
+let
+
+  var a : Integer
+
+in 
+  if a > 0 then 
+    put ('M')
+  elsif a = 0 then
+    put ('0')
+  else
+    put ('m')
+  end ! del if
+
+end ! del let

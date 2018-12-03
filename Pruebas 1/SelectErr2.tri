@@ -1,0 +1,9 @@
+select 1 from
+
+  case  then putint (1)
+
+  case 2 then putint (2)
+
+end
+
+! Error: El primer case no tiene literales

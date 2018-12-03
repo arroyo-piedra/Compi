@@ -1,0 +1,13 @@
+let
+
+  var k : Boolean
+
+in
+
+  repeat for i from k to 10 do ! k debe ser entera
+
+    putint (1) ! debe imprimir 10 unos
+
+  end
+
+end

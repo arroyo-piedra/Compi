@@ -1,0 +1,4 @@
+repeat do do put(4);put(4) while 3=3 end
+
+! Error: Hay 2 do
+!se cambio nil por put(4)

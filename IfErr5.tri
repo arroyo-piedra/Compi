@@ -1,0 +1,17 @@
+! con elsifs
+! error en comando elsif
+
+let
+
+  var a : Integer
+
+in 
+  if a > 0 then 
+    put ('M')
+  elsif a = 0 then
+    putint ('0')
+  else
+    put ('m')
+  end ! del if
+
+end ! del let

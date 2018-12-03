@@ -2,6 +2,6 @@ select 1 from
 
   case 0 then putint (1)
 
-end
+  case 2 then putint (2)
 
-! OK
+end

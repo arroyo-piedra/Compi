@@ -1,13 +1,22 @@
-let
-	recursive
-		func doble(var i : Integer) : Integer ~
-			triplicar(i)/3*2
-		proc triplicar(var i : Integer) ~
-			i := i + doble(i)
-		end
-	end
-in
-	nil
-end
+! Declaraciones mutuamente recursivas, con errores de tipo
 
-! Error: Falta el "|" que separe los proc-funcs
+
+let
+
+  recursive
+
+    func f (a : Integer): Integer ~ if a > 0 then g(a - 1) else 0
+		! g espera un booleano, no un entero
+
+    |
+
+    func g (b : Boolean): Integer ~ if b then f(1) else 0
+
+  end
+
+in
+
+  putint(f(10))
+
+end
+ 

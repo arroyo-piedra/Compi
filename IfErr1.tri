@@ -1,3 +1,15 @@
-if 1=1 puteol() else puteol()
+! if then else end, nueva sintaxis
+! error en condición
 
-! Error: Falta el end
+let
+
+  var a : Integer
+
+in 
+  if a > '0' then 
+    put ('M')
+  else
+    put ('m')
+  end ! del if
+
+end ! del let

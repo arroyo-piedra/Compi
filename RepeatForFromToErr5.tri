@@ -1,0 +1,6 @@
+  repeat for i from 1 to 10 do 
+    i := i + 1 ; ! debe dar un error
+    putint (i) ! debe imprimir del 1 al 10
+
+  end
+

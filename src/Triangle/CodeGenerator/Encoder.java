@@ -235,7 +235,7 @@ public final class Encoder implements Visitor {
     }
 
     public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select commandto the Encoder
-        Frame frame = (Frame) o;
+        
         return null;
     }
 

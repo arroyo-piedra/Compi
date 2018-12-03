@@ -1,3 +1,15 @@
-if 1=1 then puteol() end
+! if then else end, nueva sintaxis
+! error en then comando
 
-! Error: Falta el else
+let
+
+  var a : Integer
+
+in 
+  if a > 0 then 
+    putint ('M')
+  else
+    put ('m')
+  end ! del if
+
+end ! del let

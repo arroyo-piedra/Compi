@@ -1,9 +1,7 @@
-select 1 
+select 1 from
 
-  case 1 then putint (1)
+  case 'a' then putint (1) ! no debería ser literal de carácter
 
   case 2 then putint (2)
 
 end
-
-! Error: falta el from

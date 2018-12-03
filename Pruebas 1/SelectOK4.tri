@@ -1,0 +1,11 @@
+select '1' from
+
+  case '1' | '2' | '3' then putint (123)
+
+  case '4' then putint (-1)
+
+  else putint (5)
+
+end
+
+! OK

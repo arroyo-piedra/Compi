@@ -1,3 +1,17 @@
-if 1=1 puteol() 2=2 else puteol() end
+! con elsifs
+! error en condición elsif
 
-! Error: Falta el then y sobre 2=2
+let
+
+  var a : Integer
+
+in 
+  if a > 0 then 
+    put ('M')
+  elsif a + 10 then ! condición no booleana
+    put ('0')
+  else
+    put ('m')
+  end ! del if
+
+end ! del let

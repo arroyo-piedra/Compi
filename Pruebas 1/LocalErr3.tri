@@ -1,0 +1,13 @@
+let
+	local
+		! sin declaración
+	in
+		var c:=a*b*2
+	 ;
+	var d:= 5
+	end
+in
+	putInt(c)
+end
+
+! Error: Falta declaración local

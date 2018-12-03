@@ -1,9 +1,7 @@
-select 1 from 
+select '1' from
 
-  case 1  2 then putint (12) 
+  case '1' | '2' | '3' then putint (12)
 
-  case 2 then putint (2)
+  case '3' then putint (2) !etiqueta repetida
 
 end
-
-! Error: Al primer case le falta un "|"

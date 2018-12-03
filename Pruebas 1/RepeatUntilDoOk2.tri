@@ -1,0 +1,4 @@
+repeat until 2=2 do put(4);put(4) end
+
+! OK
+!se cambio nil por put(4)
