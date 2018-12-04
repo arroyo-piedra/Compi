@@ -221,32 +221,38 @@ public final class Checker implements Visitor {
         */
         ArrayList<Expression> ArrayCases = new ArrayList();
         ArrayCases = (ArrayList<Expression>)ast.CS.visit(this, o);
-        checkType(eType, ArrayCases);
-        if(ast.E instanceof IntegerExpression){
-            notRepeatedInt(ArrayCases);
-        } else if(ast.E instanceof CharacterExpression){
-            notRepeatedChar(ArrayCases);
+        boolean checkTypeResult = checkType(eType, ArrayCases);
+        if(checkTypeResult == true){
+            if(ast.E instanceof IntegerExpression){
+                notRepeatedInt(ArrayCases);
+            } else if(ast.E instanceof CharacterExpression){
+                notRepeatedChar(ArrayCases);
+            }
         }
-        //idTable.closeScope();
-        return null;
+            //idTable.closeScope();
+            return null;
     }
-    public Object checkType(TypeDenoter orig, ArrayList<Expression> arrayCheck)
+    
+    public boolean checkType(TypeDenoter orig, ArrayList<Expression> arrayCheck)
     {    
+        boolean result = true;
         for (Expression exp : arrayCheck)
         {
             if (((TypeDenoter)exp.visit(this, null)) != orig )
             {
                 reporter.reportError("Cases must be the same type as select", "", exp.position);
+                result = false;
+                break;
             }
         }
-        return null;
+        return result;
     }
     
     public Object notRepeatedInt(ArrayList<Expression> arrayCheck){
         
         for(int i =0; i< arrayCheck.size();i++){
             IntegerExpression exp1 = (IntegerExpression)arrayCheck.get(i);
-            for(int j = 0; j< arrayCheck.size();i++){
+            for(int j = i+1; j< arrayCheck.size();j++){
                 IntegerExpression exp2 = (IntegerExpression)arrayCheck.get(j);
                 if(exp1.IL.spelling.equals(exp2.IL.spelling)){
                     reporter.reportError("Repeated integer identifier for cases", "", exp1.position);
@@ -262,13 +268,14 @@ public final class Checker implements Visitor {
         
         for(int i =0; i< arrayCheck.size();i++){
             CharacterExpression exp1 = (CharacterExpression)arrayCheck.get(i);
-            for(int j = 0; j< arrayCheck.size();i++){
+            for(int j = i+1; j< arrayCheck.size();j++){
                 CharacterExpression exp2 = (CharacterExpression)arrayCheck.get(j);
                 if(exp1.CL.spelling.equals(exp2.CL.spelling)){
                     reporter.reportError("Repeated character identifier for cases", "", exp1.position);  
                     break;
                 }
             }
+            
         }
         
         return null;
@@ -1240,10 +1247,14 @@ public final class Checker implements Visitor {
     }
 
     @Override
-    public Object visitSequentialExpression(SequentialExpression ast, Object o) {
-        ast.E1.visit(this, null);
-        ast.E2.visit(this, null);
-        return null;
+    public Object visitSequentialExpression(SequentialExpression ast, Object o) { //add visit sequential expression
+        ArrayList<Expression> arrayExp = new ArrayList();
+     arrayExp.add(ast.E1);
+     
+     if(ast.E2 instanceof SequentialExpression){
+        arrayExp.addAll((Collection<? extends Expression>) ast.E2.visit(this, null));
+     }
+     return arrayExp;
     }
 
 

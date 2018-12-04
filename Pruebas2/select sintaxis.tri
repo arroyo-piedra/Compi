@@ -1,7 +1,9 @@
-select 'a' from
+select 1 from
 
-  case 'a' then putint (1)
+  case 1 | 6 | 8 | 4 then putint (1)
 
-  case 'b' then putint (2)
+  case 2 then putint (2)
+
+  case 4 then putint (3)
 
 end
