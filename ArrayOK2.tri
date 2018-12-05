@@ -1,0 +1,13 @@
+! prueba arreglo sencilla
+
+let
+  var x : array 5 .. 8 of Integer;
+  var i : Integer
+in
+
+  i := 6;
+  putint(x[i])
+
+end
+
+! Imprime 0

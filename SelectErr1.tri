@@ -1,7 +1,8 @@
 select 1 from
 
-  case 'a' then putint (1) ! no debería ser literal de carácter
+  case 0 then putint (9)
 
   case 2 then putint (2)
 
 end
+

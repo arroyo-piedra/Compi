@@ -5,7 +5,7 @@ let
 
   recursive
 
-    func f (a : Integer): Integer ~ 1
+    func f (a : Integer): Integer ~ a * 10
 
     |
 
@@ -15,6 +15,6 @@ let
 
 in
 
-  putint(f(10))
+  putint(g(10)) ! imprime 90
 
 end

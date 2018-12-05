@@ -1,0 +1,18 @@
+! if then else end, nueva sintaxis
+
+let
+
+  var a : Integer
+
+in 
+  getint(var a); ! dos corridas: número < 0 y > 0
+  if a > 0 then 
+    put ('M')
+  else
+    put ('m')
+  end ! del if
+
+end ! del let
+
+! Probar con  1 -> M
+! Probar con -1 -> m

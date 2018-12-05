@@ -15,7 +15,7 @@ let
 
 in
 
-  putint(f(10))
+  putint(f(10)) ! imprime 2
 
 end
  

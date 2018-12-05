@@ -1,0 +1,11 @@
+let
+  var x : Integer
+in
+  x := 1 ;
+  repeat do
+    putint (x);
+    x := x + 1
+  until x > 1 ! Debe imprimir 1
+  end
+
+end

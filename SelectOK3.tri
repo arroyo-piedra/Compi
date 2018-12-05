@@ -1,0 +1,7 @@
+select 2 from
+
+  case 1 then putint (1)
+
+  else putint (20)
+
+end

@@ -5,7 +5,8 @@ let
   var a : Integer
 
 in 
-  if a > 0 then 
+  getint(var a);
+  if a > 0 then ! ingresar -1, 0, 1
     put ('M')
   elsif a = 0 then
     put ('0')
@@ -14,3 +15,7 @@ in
   end ! del if
 
 end ! del let
+
+! Probar con  1 -> M
+! Probar con  0 -> 0
+! Probar con -1 -> m

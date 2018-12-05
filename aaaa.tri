@@ -1,0 +1,9 @@
+let
+
+  var a : Integer
+
+in
+  a := 1;
+  putint (a) ! imprime 1
+
+end

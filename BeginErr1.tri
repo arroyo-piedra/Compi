@@ -1,0 +1,11 @@
+let
+
+  var a : Integer
+
+in begin ! error ya no debe ser aceptado
+
+  getint (var a) ;
+  putint (a)
+
+end 
+

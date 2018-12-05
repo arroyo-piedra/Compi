@@ -1,8 +1,0 @@
-select '1' from
-
-  case '1' | '2' | 3 then putint (12) !3 no es un carácter
-
-  case '4' then putint (2)
-
-end
- 

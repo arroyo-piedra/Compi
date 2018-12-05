@@ -1,8 +1,11 @@
-select 0 from
+select 2 + 2 from
   case 1 | 2 | 3 then putint (123)
   case 4 then
     select 1 from
-      case 1 then putint (1) !no importa que se repita, está en select anidado
+      !no importa que se repita, está en select anidado
+      case 1 then putint (1) 
       else putint (2)
     end
 end
+
+! Imprime 1

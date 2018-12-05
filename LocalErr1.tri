@@ -1,0 +1,9 @@
+let
+  local
+    var a:= 1
+  in
+    const b ~ a + 1
+  end
+in
+  putint(a) ! a no debe poder ser vista aquí
+end

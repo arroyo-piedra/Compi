@@ -2,15 +2,15 @@
 
 let
 
-recursive
+  recursive
 
-  proc a() ~ put('Z') end
-  |
-  func b() : Integer ~ 5
-  |
-  proc c() ~ putint (0) end
+    proc a() ~ put('Z') end
+    |
+    func b() : Integer ~ 5
+    |
+    proc c() ~ putint (0) end
 
-end
+  end
 
 in
   putint(1)

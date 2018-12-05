@@ -1,0 +1,7 @@
+select '1' from
+
+  case '1' then put ('a')
+
+  else put ('z')
+
+end

@@ -99,7 +99,7 @@ public class Compiler {
 
 	boolean successful = (reporter.numErrors == 0);
         if (successful) {
-            //encoder.saveObjectProgram(objectName);
+            encoder.saveObjectProgram(objectName);
             System.out.println("Compilation was successful.");
         } else {
             System.out.println("Compilation was unsuccessful.");

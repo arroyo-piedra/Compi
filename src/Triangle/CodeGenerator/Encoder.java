@@ -1156,11 +1156,34 @@ public final class Encoder implements Visitor {
     }
 
     public Object visitVarIniDeclaration(VarIniDeclaration ast, Object o) { //TODO :add var inicialization declaration
+        
+        /*
         Frame frame = (Frame) o;
         int extraSize = (Integer) ast.E.visit(this, frame);
         ast.entity = new KnownAddress(Machine.addressSize, frame.level, frame.size);
         writeTableDetails(ast);
         return new Integer(extraSize);
+        */
+        
+        Frame frame = (Frame) o;
+        int extraSize = 0;
+
+        if (ast.E instanceof CharacterExpression) {
+            CharacterLiteral CL = ((CharacterExpression) ast.E).CL;
+            ast.entity = new KnownValue(Machine.characterSize,
+                    characterValuation(CL.spelling));
+        } else if (ast.E instanceof IntegerExpression) {
+            IntegerLiteral IL = ((IntegerExpression) ast.E).IL;
+            ast.entity = new KnownValue(Machine.integerSize,
+                    Integer.parseInt(IL.spelling));
+        } else {
+            int valSize = ((Integer) ast.E.visit(this, frame)).intValue();
+            ast.entity = new UnknownValue(valSize, frame.level, frame.size);
+            extraSize = valSize;
+        }
+        writeTableDetails(ast);
+        return new Integer(extraSize);
+        
     }
 
     public Object visitArrayTypeDenoterAux(ArrayTypeDenoterAux ast, Object o) { //TODO :add Array type denoter aux
@@ -1188,8 +1211,8 @@ public final class Encoder implements Visitor {
     }
 
     @Override
-    public Object visitCaseCommand(CaseCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCaseCommand(CaseCommand aThis, Object o) { //TODO added
+        return null;
     }
 
     @Override

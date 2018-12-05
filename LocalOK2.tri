@@ -1,0 +1,9 @@
+let
+  local
+    const b ~ 5
+  in
+    var a:= b + 1
+  end
+in
+  putint(a) !imprime 6
+end

@@ -1,7 +1,0 @@
-select '1' from
-
-  case '1' | '2' | '1' then putint (12) !etiqueta repetida
-
-  case '4' then putint (2)
-
-end

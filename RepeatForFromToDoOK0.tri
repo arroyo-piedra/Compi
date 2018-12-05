@@ -1,0 +1,8 @@
+let 
+ var x: Integer
+in
+  repeat for i from 1 to 0 do
+	putint(1)
+  end
+end
+
