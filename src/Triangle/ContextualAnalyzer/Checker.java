@@ -1253,7 +1253,10 @@ public final class Checker implements Visitor {
      
      if(ast.E2 instanceof SequentialExpression){
         arrayExp.addAll((Collection<? extends Expression>) ast.E2.visit(this, null));
+     }else{
+        arrayExp.add(ast.E2);
      }
+     
      return arrayExp;
     }
 
