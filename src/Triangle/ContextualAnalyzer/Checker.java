@@ -462,6 +462,7 @@ public final class Checker implements Visitor {
     }
 
     public Object visitFuncDeclaration(FuncDeclaration ast, Object o) { //Modified to be recursive 
+        /*
         State currentState = idTable.state;
         if (!idTable.state.equals("RECURSIVE2")) {
             ast.T = (TypeDenoter) ast.T.visit(this, null);
@@ -486,11 +487,31 @@ public final class Checker implements Visitor {
                 reporter.reportError("body of function \"%\" has wrong type", ast.I.spelling, ast.E.position);
             }
         }
+        */
+        State currentState = idTable.state;
+        ast.T = (TypeDenoter) ast.T.visit(this, null);
+        if(idTable.state == State.RECURSIVE1)
+        {
+            idTable.enter (ast.I.spelling, ast); // permits recursion
+            if (ast.duplicated)
+                reporter.reportError ("identifier \"%\" already declared",
+            ast.I.spelling, ast.position);
+        }
+        else if (idTable.state == State.RECURSIVE2){
+            idTable.openScope();
+            ast.FPS.visit(this, null);
+            TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+            idTable.closeScope();
+            if (! ast.T.equals(eType))
+                reporter.reportError ("body of function \"%\" has wrong type",
+            ast.I.spelling, ast.E.position);
+        }
         idTable.state = currentState;
         return null;
     }
 
     public Object visitProcDeclaration(ProcDeclaration ast, Object o) { //Modified to be recursive
+        /*
         State currentState = idTable.state;
         if (!idTable.state.equals("RECURSIVE2")) {
             idTable.enter(ast.I.spelling, ast); // permits recursion
@@ -498,10 +519,17 @@ public final class Checker implements Visitor {
                 reporter.reportError("identifier \"%\" already declared",
                         ast.I.spelling, ast.position);
             }
-            if (idTable.state.equals("RECURSIVE1")) {
+            else if (idTable.state.equals("RECURSIVE1")) {
+                /*
                 idTable.openScope();
                 ast.FPS.visit(this, null);
                 idTable.closeScope();
+                
+                idTable.openScope();
+                ast.FPS.visit(this, null);
+                ast.C.visit(this, null);
+                idTable.closeScope();
+                return null;
             }
         } else {
             idTable.state = State.NONE;
@@ -513,6 +541,24 @@ public final class Checker implements Visitor {
             ast.C.visit(this, null);
             idTable.closeScope();
         }
+        */
+        State currentState = idTable.state;
+        if(idTable.state == State.RECURSIVE1)
+        {
+            idTable.enter (ast.I.spelling, ast); // permits recursion
+            if (ast.duplicated)
+                reporter.reportError ("identifier \"%\" already declared",
+                ast.I.spelling, ast.position);
+        }
+        else if (idTable.state == State.RECURSIVE2){
+            idTable.openScope();
+            ast.FPS.visit(this, null);
+            ast.C.visit(this, null);
+            idTable.closeScope();
+            return null;
+        }
+        else
+            idTable.state = State.NONE;
         idTable.state = currentState;
         return null;
     }
@@ -1149,14 +1195,12 @@ public final class Checker implements Visitor {
             ast.D1.visit(this, null);
             ast.D2.visit(this, null);
         }
-        /*
         if (currentState != State.RECURSIVE1) {
             idTable.state = State.RECURSIVE2;
             ast.D1.visit(this, null);
             ast.D2.visit(this, null);
             idTable.state = currentState;
         }
-        */
         return null;
     }
 

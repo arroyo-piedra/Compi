@@ -1,9 +1,20 @@
+! Funciones mutuamente recursivas, anterior ve a posterior
+
+
 let
 
-  var a : Integer
+  recursive
+
+    func f (a : Char): Char ~ g(a)
+
+    |
+
+    func g (b : Char): Char ~ 'a'
+
+  end
 
 in
-  a := 1;
-  putint (a) ! imprime 1
+
+  put(f('b')) ! imprime 2
 
 end
