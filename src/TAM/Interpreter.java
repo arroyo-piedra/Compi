@@ -204,7 +204,7 @@ public class Interpreter {
         System.out.println("Program has failed due to overflow.");
         break;
       case failedZeroDivide:
-        System.out.println("Program has failed due to division by zero.");
+        System.out.println("Program has failed due to diaision by zero.");
         break;
       case failedIOError:
         System.out.println("Program has failed due to an IO error.");
@@ -579,6 +579,15 @@ public class Interpreter {
         case Machine.HALTop:
           status = halted;
           break;
+        case Machine.CASENOTop: //add1
+         if (data[ST - 1] != n){
+           //ST = ST - 1;
+           CP = d + content(r);
+         }else{
+           //ST = ST - 2; //Limpiamos la pila del que se agrega y el literal del select 
+           CP = CP + 1;
+         }
+         break;
       }
       if ((CP < CB) || (CP >= CT))
         status = failedInvalidCodeAddress;

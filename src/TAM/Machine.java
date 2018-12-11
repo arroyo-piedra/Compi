@@ -45,13 +45,14 @@ public final class Machine {
     CALLop = 6,
     CALLIop = 7,
     RETURNop = 8,
-    CASEop = 9,
+    CASEop = 9, //agregado el caseOp
     PUSHop = 10,
     POPop = 11,
     JUMPop = 12,
     JUMPIop = 13,
     JUMPIFop = 14,
-    HALTop = 15;
+    HALTop = 15,
+    CASENOTop = 16; // agregado el caseNotOp
 
 
 
