@@ -235,9 +235,19 @@ public final class Encoder implements Visitor {
         return null;
     }
 
-    public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add select commandto the Encoder
+    public Object visitSelectCommand(SelectCommand ast, Object o) {   //TODO :add1 select commandto the Encoder
+        
+        Frame frame = (Frame) o;
+       int jumpSelectAddr, jumpAddr;
+       Integer valSize = (Integer) ast.E.visit(this, frame);
+   
+       jumpSelectAddr = nextInstrAddr;
+       ast.CS.visit(this, frame);
+       jumpAddr= nextInstrAddr;
         
         return null;
+        
+        
     }
 
     public Object visitDoWhileCommand(DoWhileCommand ast, Object o) { //Add DoWhleCommmand to the encoder
@@ -1206,8 +1216,38 @@ public final class Encoder implements Visitor {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
     @Override
-    public Object visitCasesCommand(CasesCases aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitCasesCommand(CasesCases ast, Object o) { //add1
+        
+        Frame frame = (Frame) o;
+        int jumpifAddr, jumpAddr;  
+  
+        if(ast.c1 instanceof CaseCommand){
+            CaseCommand cs = (CaseCommand) ast.c1;
+            Integer valSize = (Integer)cs.EC.visit(this, frame);
+            jumpifAddr = nextInstrAddr;
+            emit(Machine.CASENOTop, Machine.falseRep, Machine.CBr, 0);
+            patch(jumpifAddr,nextInstrAddr);
+            cs.CC.visit(this, frame);
+            jumpAddr = nextInstrAddr;
+            emit(Machine.JUMPop, 0, Machine.CBr, 0);
+            patch(jumpAddr,nextInstrAddr);
+        }else{
+            jumpifAddr = nextInstrAddr;
+            patch(jumpifAddr,nextInstrAddr);
+            ast.c1.visit(this, frame);
+            jumpAddr = nextInstrAddr;
+            emit(Machine.JUMPop, 0, Machine.CBr, 0);
+            patch(jumpAddr,nextInstrAddr);
+        }
+       
+        if(ast.c2 != null){
+            patch(jumpifAddr, nextInstrAddr);
+            ast.c2.visit(this, frame);
+            patch(jumpAddr, nextInstrAddr);
+        }else{
+            patch(jumpifAddr, nextInstrAddr);
+        }
+        return null;
     }
 
     @Override
@@ -1221,8 +1261,22 @@ public final class Encoder implements Visitor {
     }
 
     @Override
-    public Object visitSequentialExpression(SequentialExpression aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object visitSequentialExpression(SequentialExpression ast, Object o) { //add1
+        
+        Frame frame = (Frame) o;
+     int jumpActualCase, jumpAddr;
+     Integer valSize;
+    
+     valSize = (int)ast.E1.visit(this, frame);
+     jumpActualCase = nextInstrAddr;
+     emit(Machine.CASENOTop, Machine.falseRep, Machine.CBr, 0);
+     jumpAddr = nextInstrAddr;
+     emit(Machine.JUMPop, 0, Machine.CBr, 0);
+     patch(jumpActualCase, nextInstrAddr);
+     valSize = (int)ast.E2.visit(this, frame);
+     patch(jumpAddr, nextInstrAddr+1);
+     return valSize;
+        
     }
     
 
