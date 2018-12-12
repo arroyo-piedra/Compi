@@ -52,7 +52,8 @@ public final class Machine {
     JUMPIop = 13,
     JUMPIFop = 14,
     HALTop = 15,
-    CASENOTop = 16; // agregado el caseNotOp
+    CASENOTop = 16, // agregado el caseNotOp
+    HALTCaseop = 17; //agregado halt case
 
 
 

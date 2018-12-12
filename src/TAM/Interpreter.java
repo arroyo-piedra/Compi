@@ -579,6 +579,9 @@ public class Interpreter {
         case Machine.HALTop:
           status = halted;
           break;
+        case Machine.HALTCaseop: //add
+          status = halted;
+          break;
         case Machine.CASENOTop: //add1
          if (data[ST - 1] != n){
            //ST = ST - 1;

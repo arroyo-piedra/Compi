@@ -1245,6 +1245,7 @@ public final class Encoder implements Visitor {
             ast.c2.visit(this, frame);
             patch(jumpAddr, nextInstrAddr);
         }else{
+            emit(Machine.HALTCaseop, 0, 0, 0);
             patch(jumpifAddr, nextInstrAddr);
         }
         return null;
@@ -1256,9 +1257,15 @@ public final class Encoder implements Visitor {
     }
 
     @Override
-    public Object visitCaseElseCommand(CaseElseCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public Object visitCaseElseCommand(CaseElseCommand ast, Object o) {
+        
+       Frame frame = (Frame)o;
+       int jumpAdd = nextInstrAddr-1;
+       
+       patch(jumpAdd,nextInstrAddr-1);
+       ast.CC.visit(this, frame);
+       
+       return null;    }
 
     @Override
     public Object visitSequentialExpression(SequentialExpression ast, Object o) { //add1

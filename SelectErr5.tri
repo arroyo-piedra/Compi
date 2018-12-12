@@ -4,6 +4,6 @@ select 0 from
     select 1 from
       !no importa que se repita, está en select anidado
       case 1 then putint (1) 
-      else putint (2)
+      !else putint (2)
     end
 end

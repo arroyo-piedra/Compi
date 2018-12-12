@@ -338,6 +338,11 @@ public class Disassembler {
         
       case Machine.HALTop:
         System.out.print ("HALT  ");
+        break;
+        
+      case Machine.HALTCaseop:   //add
+        System.out.print ("HALTCASE  ");
+        break;
     }
   }
 
